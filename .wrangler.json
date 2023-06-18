@@ -1,0 +1,14 @@
+{
+  "name": "blog",
+  "compatibilityDate": "2023-05-01",
+  "d1Databases": [
+    {
+      "binding": "DB"
+    }
+  ],
+  "kvNamespaces": [
+    {
+      "binding": "KV"
+    }
+  ]
+}

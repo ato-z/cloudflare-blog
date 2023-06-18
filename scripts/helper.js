@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const wranglerConfig = require('../wrangler');
+const wranglerConfig = require('../.wrangler.json');
 const prettier = require('prettier');
 const prettierrc = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../.prettierrc')),
