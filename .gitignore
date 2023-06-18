@@ -1,3 +1,4 @@
 .vscode
 .DS_Store
+.wrangler.json
 node_modules
