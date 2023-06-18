@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "types": ["@cloudflare/workers-types"],
+
+    /* Modules */
+    "module": "commonjs",
+
+    "experimentalDecorators": true,
+
+    /** 路径别名 */
+    "paths": {
+      "@zerg/*": ["./zerg/*"]
+    },
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": [
+    "./types/**.d.ts",
+    "./types/**/**.d.ts",
+    "packages/**/**.ts",
+    "packages/**/**/**.ts",
+    "zerg/**/**.ts"
+  ],
+  "exclude": ["node_modules"]
+}
