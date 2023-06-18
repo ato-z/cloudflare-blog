@@ -7,12 +7,12 @@
     /* Modules */
     "module": "commonjs",
 
-    "experimentalDecorators": true,
-
     /** 路径别名 */
     "paths": {
       "@zerg/*": ["./zerg/*"]
     },
+
+    "strictNullChecks": true,
 
     /* Completeness */
     "skipLibCheck": true
