@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "wrangler:dev": "node scripts/wrangler/dev.js",
     "wrangler:new": "node scripts/wrangler/new.js",
     "wrangler:init": "node scripts/wrangler/init.js",
-    "wrangler:algin": "wrangler"
+    "wrangler:algin": "node scripts/wrangler/algin.js"
   },
   "keywords": [],
   "author": "",

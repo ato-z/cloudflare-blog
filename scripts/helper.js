@@ -75,7 +75,7 @@ const upWranglerConfig = obj => {
     parser: 'json',
   });
 
-  fs.writeFileSync(path.resolve(pathMap.root, 'wrangler.json'), codeJson);
+  fs.writeFileSync(path.resolve(pathMap.root, '.wrangler.json'), codeJson);
 };
 
 /** 判断路径是否存在 */
