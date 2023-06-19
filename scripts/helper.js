@@ -10,7 +10,7 @@ const prettierrc = JSON.parse(
 const pathMap = (() => {
   const root = path.resolve(__dirname, '../');
   const zerg = path.resolve(root, 'zerg');
-  const modules = path.resolve(root, 'modules');
+  const modules = path.resolve(zerg, 'modules');
   const sql = path.resolve(root, 'sql');
   return { root, zerg, modules, sql };
 })();
@@ -64,9 +64,20 @@ const upWranglerConfig = obj => {
   fs.writeFileSync(path.resolve(pathMap.root, 'wrangler.json'), codeJson);
 };
 
+/** 判断路径是否存在 */
+const withDir = dir => {
+  try {
+    return fs.statSync(dir);
+  } catch {
+    return null;
+  }
+};
+
 module.exports = {
   pathMap,
   toToml,
   wranglerConfig,
+  prettierrc,
   upWranglerConfig,
+  withDir,
 };
