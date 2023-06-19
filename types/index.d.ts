@@ -7,7 +7,7 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/
  */
-declare type Env = {
+declare type Env = WranglerAutoEnv & {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
   // MY_KV_NAMESPACE: KVNamespace
   // KV_EXCEPTION: KVNamespace;
