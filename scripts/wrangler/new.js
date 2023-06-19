@@ -15,7 +15,9 @@ const args = process.argv;
 const [, , ...modules] = args;
 
 if (modules.length < 1) {
-  throw new Error('🙊 模块名不能为空');
+  throw new Error(
+    '🙊 模块名不能为空\nFor example: `npm run wrangler:new <YOUR MODULES_NAME>`',
+  );
 }
 
 const touchModule = moduleName => {
@@ -27,7 +29,7 @@ const touchModule = moduleName => {
 
   const extendJsonDir = path.resolve(dir, 'extend.wrangler.json');
   if (withDir(extendJsonDir) === null) {
-    const content = `{"name": "${name}"}`;
+    const content = `{ "name": "${name}", "main": "index.ts" }\n`;
     fs.writeFileSync(extendJsonDir, content);
   }
 
