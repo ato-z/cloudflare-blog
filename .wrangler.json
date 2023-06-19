@@ -3,12 +3,16 @@
   "compatibilityDate": "2023-05-01",
   "d1Databases": [
     {
-      "binding": "DB"
+      "binding": "DB",
+      "databaseName": "blog_16bb835",
+      "databaseId": "85794dcb-0a40-4ac4-9110-a923ceea31cb"
     }
   ],
   "kvNamespaces": [
     {
-      "binding": "KV"
+      "binding": "KV",
+      "id": "9ca83df5bf974bc7b52f7723d558f3d5",
+      "previewId": "9ca83df5bf974bc7b52f7723d558f3d5"
     }
   ]
 }
