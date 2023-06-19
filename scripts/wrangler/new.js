@@ -33,6 +33,7 @@ const touchModule = moduleName => {
   if (withDir(extendJsonDir) === null) {
     const main = 'index.ts';
     const routes = [
+      { pattern: domain.target, customDomain: true },
       { pattern: `${domain.target}/${moduleName}/*`, zoneId: domain.zoneId },
     ];
     extendConfig = {
