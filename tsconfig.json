@@ -1,18 +1,28 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
+    /** 旧版的装饰器 */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    "target": "ESNext",
     "lib": ["ES2021"],
     "types": ["@cloudflare/workers-types"],
+    "moduleResolution": "node",
 
     /* Modules */
     "module": "commonjs",
 
-    "experimentalDecorators": true,
+    "outDir": "dist",
 
     /** 路径别名 */
     "paths": {
       "@zerg/*": ["./zerg/*"]
     },
+
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
 
     /* Completeness */
     "skipLibCheck": true

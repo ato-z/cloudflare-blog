@@ -1,0 +1,9 @@
+{
+  "name": "@ato-z/helper",
+  "version": "1.0.0",
+  "description": "🧩 助手函数",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

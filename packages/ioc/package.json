@@ -1,0 +1,9 @@
+{
+  "name": "@ato-z/ioc",
+  "version": "1.0.0",
+  "description": "🛝 转换Workers路由",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
