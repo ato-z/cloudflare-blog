@@ -36,6 +36,7 @@ const touchModule = moduleName => {
   const tomlDir = path.resolve(dir, 'wrangler.toml');
   if (withDir(tomlDir) === null) {
     const config = { name, main: 'index.ts', ...wranglerConfig };
+    config.name = name;
     const content = toToml(config);
     fs.writeFileSync(tomlDir, content);
   }
