@@ -46,11 +46,9 @@ const toToml = obj => {
     } else if (type === 'number') {
       tomlLine.push(`${keyName}=${value}\n`);
     } else if (value instanceof Array && typeof value[0] === 'object') {
-      tomlLine.push(`\n[[${keyName}]]\n`);
-      eachArr(value);
+      eachArr(value, `\n[[${keyName}]]\n`);
     } else if (type === 'object' && value !== null) {
-      tomlLine.push(`\n[${keyName}]\n`);
-      eachArr([value]);
+      eachArr([value], `\n[${keyName}]\n`);
     } else if (type === 'boolean') {
       const target = value ? 'true' : 'flase';
       tomlLine.push(`${keyName}=${target}\n`);
@@ -59,8 +57,9 @@ const toToml = obj => {
     }
   };
 
-  const eachArr = arr => {
+  const eachArr = (arr, newLine = '') => {
     arr.forEach(obj => {
+      tomlLine.push(`${newLine}`);
       Object.keys(obj).forEach(key => {
         const keyName = convert_(key);
         const value = obj[key];
