@@ -1,6 +1,7 @@
 {
   "name": "blog-install",
   "main": "index.ts",
+  "compatibilityDate": "2023-05-01",
   "routes": [
     {
       "pattern": "atoz.ltd/install/*",

@@ -38,6 +38,7 @@ const touchModule = moduleName => {
     extendConfig = {
       name,
       main,
+      compatibilityDate: wranglerConfig.compatibilityDate,
       routes,
     };
     const content = prettier.format(JSON.stringify(extendConfig), {
