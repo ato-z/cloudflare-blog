@@ -11,8 +11,22 @@ const pathMap = (() => {
   const root = path.resolve(__dirname, '../');
   const zerg = path.resolve(root, 'zerg');
   const modules = path.resolve(zerg, 'modules');
-  const sql = path.resolve(root, 'sql');
-  return { root, zerg, modules, sql };
+
+  const moduleList = fs.readdirSync(modules).filter(moduleName => {
+    // 如果为.开头，则跳过
+    if (/^\./.test(moduleName)) {
+      return undefined;
+    }
+
+    const curPath = path.join(modules, moduleName);
+    try {
+      const stat = fs.statSync(curPath);
+      return stat.isDirectory();
+    } catch {
+      return false;
+    }
+  });
+  return { root, zerg, modules, moduleList };
 })();
 
 /** 大写字母转下划线 */

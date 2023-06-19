@@ -26,6 +26,7 @@
   "dependencies": {
     "@ato-z/helper": "link:packages/helper",
     "@ato-z/ioc": "link:packages/ioc",
+    "inquirer": "8.2.5",
     "sha1": "^1.1.1"
   }
 }
