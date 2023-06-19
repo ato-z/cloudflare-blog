@@ -1,1 +1,10 @@
-{ "name": "blog-install", "main": "index.ts" }
+{
+  "name": "blog-install",
+  "main": "index.ts",
+  "routes": [
+    {
+      "pattern": "atoz.ltd/install/*",
+      "zoneId": "b892eb8864058dab1d6dcf29348de276"
+    }
+  ]
+}

@@ -21,7 +21,7 @@ moduleList.forEach(moduleName => {
   const dir = path.resolve(modules, moduleName);
   const extendConfig = require(path.resolve(dir, 'extend.wrangler.json'));
   const config = {
-    main: extendConfig.main,
+    ...extendConfig,
     ...wranglerConfig,
     ...extendConfig,
   };

@@ -6,6 +6,9 @@ const prettierrc = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../.prettierrc')),
 );
 
+const { domain } = wranglerConfig;
+delete wranglerConfig.domain;
+
 // 路径配置
 const pathMap = (() => {
   const root = path.resolve(__dirname, '../');
@@ -45,9 +48,14 @@ const toToml = obj => {
     } else if (value instanceof Array && typeof value[0] === 'object') {
       tomlLine.push(`\n[[${keyName}]]\n`);
       eachArr(value);
-    } else if (typeof value === 'object' && value !== null) {
+    } else if (type === 'object' && value !== null) {
       tomlLine.push(`\n[${keyName}]\n`);
       eachArr([value]);
+    } else if (type === 'boolean') {
+      const target = value ? 'true' : 'flase';
+      tomlLine.push(`${keyName}=${target}\n`);
+    } else if (type === null) {
+      tomlLine.push(`${keyName}=null\n`);
     }
   };
 
@@ -70,10 +78,13 @@ const toToml = obj => {
 /** 更新公共配置 */
 const upWranglerConfig = obj => {
   Object.assign(wranglerConfig, obj);
-  const codeJson = prettier.format(JSON.stringify(wranglerConfig), {
-    ...prettierrc,
-    parser: 'json',
-  });
+  const codeJson = prettier.format(
+    JSON.stringify({ domain, ...wranglerConfig }),
+    {
+      ...prettierrc,
+      parser: 'json',
+    },
+  );
 
   fs.writeFileSync(path.resolve(pathMap.root, '.wrangler.json'), codeJson);
 };
@@ -91,6 +102,7 @@ module.exports = {
   pathMap,
   toToml,
   wranglerConfig,
+  domain,
   prettierrc,
   upWranglerConfig,
   withDir,

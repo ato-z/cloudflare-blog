@@ -1,1 +1,10 @@
-{ "name": "blog-master", "main": "index.ts" }
+{
+  "name": "blog-master",
+  "main": "index.ts",
+  "routes": [
+    {
+      "pattern": "atoz.ltd/master/*",
+      "zoneId": "b892eb8864058dab1d6dcf29348de276"
+    }
+  ]
+}

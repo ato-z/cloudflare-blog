@@ -7,6 +7,7 @@ const {
   prettierrc,
   wranglerConfig,
   toToml,
+  domain,
 } = require('../helper');
 /**
  * 创建一个新模块
@@ -28,15 +29,29 @@ const touchModule = moduleName => {
   }
 
   const extendJsonDir = path.resolve(dir, 'extend.wrangler.json');
+  let extendConfig = {};
   if (withDir(extendJsonDir) === null) {
-    const content = `{ "name": "${name}", "main": "index.ts" }\n`;
+    const main = 'index.ts';
+    const routes = [
+      { pattern: `${domain.target}/${moduleName}/*`, zoneId: domain.zoneId },
+    ];
+    extendConfig = {
+      name,
+      main,
+      routes,
+    };
+    const content = prettier.format(JSON.stringify(extendConfig), {
+      ...prettierrc,
+      parser: 'json',
+    });
     fs.writeFileSync(extendJsonDir, content);
+  } else {
+    extendConfig = require(extendJsonDir);
   }
 
   const tomlDir = path.resolve(dir, 'wrangler.toml');
   if (withDir(tomlDir) === null) {
-    const config = { name, main: 'index.ts', ...wranglerConfig };
-    config.name = name;
+    const config = { ...extendConfig, ...wranglerConfig, ...extendConfig };
     const content = toToml(config);
     fs.writeFileSync(tomlDir, content);
   }
