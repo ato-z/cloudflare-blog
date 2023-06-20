@@ -50,44 +50,6 @@ export const partRouter = <T>(
 };
 
 /**
- * 解析post提交 multipartFormData
- */
-export const partMultipartFormData = (body: string, boundary: string) => {
-  const lis = body.split('\r\n');
-  const result: Array<[string, Array<number | string>]> = [];
-  let cur: [string, Array<number | string>] = ['', []];
-  lis
-    .filter(item => item && !item.includes(boundary))
-    .forEach((item: string) => {
-      if (/Content-Disposition:\s+form-data;\s+name=/i.test(item)) {
-        const reg = /name="(.+)?"/.exec(item)!;
-        const name = reg[1];
-        const findIndex = result.findIndex(lis => lis[0] === name);
-        if (findIndex >= 0) {
-          cur = result[findIndex]!;
-        } else {
-          cur = [name, []];
-          result.push(cur);
-        }
-      } else {
-        cur[1].push(item);
-      }
-    });
-
-  const entries = result
-    .map(li => [li[0], li[1].map(i => (isNumber(i) ? toNumber(i) : i))])
-    .map(li => {
-      const [name, item] = li as [string, Array<string | number>];
-      if (item?.length > 2) {
-        return [name, item];
-      }
-
-      return [name, item[0]];
-    });
-  return Object.fromEntries(entries as [string, any]);
-};
-
-/**
  * 个位数填充0
  * @param {number} n 需要检验的字符
  * @returns 转化后的字符
@@ -138,4 +100,22 @@ export const date = function (dateString: string, _date?: Date): string {
     }
   });
   return dateString;
+};
+
+/**
+ * 断言函数，如果具有length则为字符串或者数组
+ */
+export const withLength = <T extends { length: number } & string>(
+  target: any,
+): target is T => {
+  try {
+    if (typeof target === 'string') {
+      return true;
+    }
+
+    const length: unknown = Reflect.get(target, 'length');
+    return typeof length === 'number';
+  } catch {
+    return false;
+  }
 };
