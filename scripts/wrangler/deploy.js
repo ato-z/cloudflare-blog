@@ -10,7 +10,7 @@ const { moduleList, modules } = pathMap;
 
 const deployModule = moduleName => {
   const wranglerMain = path.join(modules, moduleName);
-  shell.exec(`cd ${wranglerMain} && wrangler deploy`);
+  shell.exec(`cd ${wranglerMain} && wrangler deploy --minify`);
 };
 
 const all = '🐻 ALL';
