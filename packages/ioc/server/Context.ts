@@ -1,9 +1,9 @@
-import { partRouter, partParams, partMultipartFormData } from '@ato-z/helper';
+import { partRouter, partParams } from '@ato-z/helper';
 
-export class Context {
+export class Context<P = Record<string, string>> {
   public domain: string;
   public url: string;
-  public params: unknown;
+  public params: P;
   public headers: Request['headers'];
   public method: string;
 
@@ -18,16 +18,16 @@ export class Context {
     this.method = method;
   }
 
-  async getBody<S>() {
+  async getBody<B extends Record<string, unknown>>() {
     let body = this._body;
     if (body === null) {
       body = await this.withBody();
     }
 
-    return body as S;
+    return body as B;
   }
 
-  async toProp<P, B>() {
+  async toProp<B>() {
     const body = await this.withBody();
     const { url, params, domain, method, headers } = this;
     const headerAll: Array<[string, string]> = [];
@@ -39,7 +39,7 @@ export class Context {
 
     return {
       url,
-      params: params as P,
+      params,
       body: body as B,
       domain,
       method,
@@ -53,7 +53,10 @@ export class Context {
       return {};
     }
 
-    const clone = new Response(request.body, request);
+    if (this._body) {
+      return this._body;
+    }
+
     const contentType: string =
       headers.get('content-type') ??
       headers.get('Content-Type') ??
@@ -62,23 +65,15 @@ export class Context {
       '';
 
     if (/multipart\/form-data/i.test(contentType)) {
-      const reg = /boundary=(.+)$/i;
-      const regResult = reg.exec(contentType);
-      if (regResult === null) {
-        this._body = {};
-        return this._body;
-      }
-
-      const [, boundary] = regResult;
-      const _body = await clone.text();
-      this._body = partMultipartFormData(_body, boundary);
+      const body = await request.formData();
+      this._body = body;
     } else if (/application\/x-www-form-urlencoded/i.test(contentType)) {
-      const urlencoded = await clone.text();
+      const urlencoded = await request.text();
       this._body = partParams(urlencoded);
     } else if (/application\/json/i.test(contentType)) {
-      this._body = await clone.json();
+      this._body = await request.json();
     } else {
-      this._body = await clone.text();
+      this._body = await request.text();
     }
 
     return this._body;

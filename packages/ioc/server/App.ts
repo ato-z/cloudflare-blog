@@ -1,3 +1,4 @@
+import { Dto } from '../dto';
 import { Context } from './Context';
 import { Queue, type JobCurrent } from './Queue';
 import { Result } from './Result';
@@ -11,6 +12,9 @@ export class App {
 
   async fetch(request: Request, env: Env): Promise<Response> {
     const ctx = new Context(request, env);
+    const post = await ctx.getBody();
+    const parmas = ctx.params;
+    Object.assign(Dto.params, { ...parmas, ...post });
     const result = await this.queue.up(ctx);
     if (result instanceof Response) {
       return result;
