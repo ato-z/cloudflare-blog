@@ -10,7 +10,7 @@ const { moduleList, modules } = pathMap;
 
 const devModule = moduleName => {
   const wranglerMain = path.join(modules, moduleName);
-  shell.exec(`cd ${wranglerMain} && wrangler dev`);
+  shell.exec(`cd ${wranglerMain} && wrangler dev --persist`);
 };
 
 inquirer
