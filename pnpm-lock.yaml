@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@ato-z/helper': link:packages/helper
   '@ato-z/ioc': link:packages/ioc
+  '@ato-z/orm': link:packages/orm
   '@cloudflare/workers-types': ^4.20230518.0
   '@typescript-eslint/eslint-plugin': '>=5.57.0'
   '@typescript-eslint/parser': '>=5.57.0'
@@ -20,6 +21,7 @@ specifiers:
 dependencies:
   '@ato-z/helper': link:packages/helper
   '@ato-z/ioc': link:packages/ioc
+  '@ato-z/orm': link:packages/orm
   inquirer: 8.2.5
   sha1: 1.1.1
 
