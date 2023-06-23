@@ -18,7 +18,7 @@ const pathMap = (() => {
   const moduleList = fs.readdirSync(modules).filter(moduleName => {
     // 如果为.开头，则跳过
     if (/^\./.test(moduleName)) {
-      return undefined;
+      return false;
     }
 
     const curPath = path.join(modules, moduleName);
@@ -29,7 +29,17 @@ const pathMap = (() => {
       return false;
     }
   });
-  return { root, zerg, modules, moduleList };
+
+  const sql = path.resolve(root, 'sql');
+  const sqlList = fs.readdirSync(sql).filter(file => {
+    // 如果为.开头，则跳过
+    if (/^\./.test(file)) {
+      return false;
+    }
+
+    return /\.sql$/i.test(file);
+  });
+  return { root, zerg, modules, moduleList, sql, sqlList };
 })();
 
 /** 大写字母转下划线 */
