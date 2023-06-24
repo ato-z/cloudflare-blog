@@ -1,0 +1,9 @@
+{
+  "name": "@ato-z/orm",
+  "version": "1.0.0",
+  "description": "👾 简单的查询语句封装",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

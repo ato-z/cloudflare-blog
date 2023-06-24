@@ -1,4 +1,4 @@
-name="blog-install"
+name="blog-static"
 main="index.ts"
 compatibility_date="2023-05-01"
 
@@ -7,7 +7,7 @@ pattern="atoz.ltd"
 custom_domain=true
 
 [[routes]]
-pattern="atoz.ltd/install/*"
+pattern="atoz.ltd/static/*"
 zone_id="b892eb8864058dab1d6dcf29348de276"
 
 [[d1_databases]]
