@@ -4,7 +4,7 @@ type Master = {
   id: number;
   name: string;
   nickname: string;
-  cover: string;
+  cover: number;
   intro: string;
   password: string;
   createDate: string;
