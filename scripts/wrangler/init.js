@@ -53,6 +53,10 @@ r2Buckets.forEach(r2 => {
     const bucketName = `static-${sha1(Math.random())}`.substring(0, 12);
     sh.exec(`wrangler r2 bucket create ${bucketName}`);
     r2.bucketName = bucketName;
+    r2.previewBucketName = bucketName;
+    upWranglerConfig({ r2Buckets });
+  } else if (typeof r2.previewBucketName !== 'string') {
+    r2.previewBucketName = r2.bucketName;
     upWranglerConfig({ r2Buckets });
   }
 });

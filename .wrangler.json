@@ -20,5 +20,11 @@
       "previewId": "9ca83df5bf974bc7b52f7723d558f3d5"
     }
   ],
-  "r2Buckets": [{ "binding": "R2Static", "bucketName": "static-0da64" }]
+  "r2Buckets": [
+    {
+      "binding": "R2Static",
+      "bucketName": "static-0da64",
+      "previewBucketName": "static-0da64"
+    }
+  ]
 }
