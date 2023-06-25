@@ -61,6 +61,10 @@ export abstract class ModelBase<T> extends Model {
       limit: 1,
     });
 
+    if (codeList.list.length === 0) {
+      return null;
+    }
+
     const [first] = await codeList.toJSON();
     return first;
   }
