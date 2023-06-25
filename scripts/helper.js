@@ -70,12 +70,17 @@ const toToml = obj => {
   const eachArr = (arr, newLine = '') => {
     arr.forEach(obj => {
       tomlLine.push(`${newLine}`);
-      Object.keys(obj).forEach(key => {
-        const keyName = convert_(key);
-        const value = obj[key];
+      Object.keys(obj)
+        .sort(cur => {
+          const type = typeof obj[cur];
+          return type === 'string' || type === 'number' ? -1 : 0;
+        })
+        .forEach(key => {
+          const keyName = convert_(key);
+          const value = obj[key];
 
-        pushTomlLine(keyName, value);
-      });
+          pushTomlLine(keyName, value);
+        });
     });
   };
 
