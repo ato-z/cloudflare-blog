@@ -45,7 +45,7 @@ export const parseWhereParams = (
         [operative, value] = [OP.EQ, right];
       }
 
-      if (isNaN(value as number)) {
+      if (isNaN(value as number) && value !== value) {
         throw new TypeError(`${key}: 不能为 NaN`);
       }
 
