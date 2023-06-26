@@ -1,6 +1,6 @@
 import { date } from '@ato-z/helper';
 import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
-import { ExceptionParam } from '@zerg/ exception';
+import { ExceptionParam } from '@zerg/exception';
 import { appConfig } from '@zerg/config/app';
 import { IMAGE_FROM } from '@zerg/enum';
 import { ModelImage } from '@zerg/model/Image';
