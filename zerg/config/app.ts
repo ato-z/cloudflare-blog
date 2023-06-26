@@ -15,4 +15,7 @@ export const appConfig = {
     sign: 2592000, // 30天 = 30 * 24 * 3600
     token: 7200, // 7200秒
   },
+  /** 图片首次上次时的，默认颜色 */
+  defaultColor: '#f2f2f2',
+  maxImgFile: 5000000, // 最大图片大小 5M 5*1000*1000
 };
