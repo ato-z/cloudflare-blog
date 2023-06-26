@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const prettier = require('prettier');
 const { wranglerConfig, pathMap, toToml, prettierrc } = require('../helper');
-const { d1Databases, kvNamespaces } = wranglerConfig;
+const { d1Databases, kvNamespaces, r2Buckets } = wranglerConfig;
 
 const { moduleList, modules } = pathMap;
 
@@ -37,6 +37,9 @@ d1Databases.forEach(d1 => {
 });
 kvNamespaces.forEach(kv => {
   cliEnvEntries.push([kv.binding, 'KVNamespace']);
+});
+r2Buckets.forEach(r2 => {
+  cliEnvEntries.push([r2.binding, 'R2Bucket']);
 });
 const cliEnv = Object.fromEntries(cliEnvEntries);
 const wranglerEnv = `

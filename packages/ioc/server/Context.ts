@@ -18,7 +18,7 @@ export class Context<P = Record<string, string>> {
     this.method = method;
   }
 
-  async getBody<B extends Record<string, unknown>>() {
+  async getBody<B extends Record<string, unknown> | FormData>() {
     let body = this._body;
     if (body === null) {
       body = await this.withBody();

@@ -4,16 +4,16 @@
 const sha1 = require('sha1');
 const sh = require('shelljs');
 const { wranglerConfig, upWranglerConfig } = require('../helper');
-const { d1Databases, kvNamespaces } = wranglerConfig;
+const { d1Databases, kvNamespaces, r2Buckets } = wranglerConfig;
 
 // 检查d1数据库是否完整
 d1Databases.forEach(db => {
-  if (db.databaseId === undefined) {
+  if (typeof db.databaseId !== 'string') {
     const databaseName = `${wranglerConfig.name}_${sha1(
       Math.random(),
     )}`.substring(0, 12);
 
-    const out = sh.exec(`npx wrangler d1 create ${databaseName}`);
+    const out = sh.exec(`wrangler d1 create ${databaseName}`);
     if (out.code !== 0) {
       upWranglerConfig({ d1Databases });
       throw new Error('🤡 D1创建失败');
@@ -45,4 +45,18 @@ kvNamespaces.forEach(kv => {
   }
 
   upWranglerConfig({ kvNamespaces });
+});
+
+// 检查R2储存桶是否完整
+r2Buckets.forEach(r2 => {
+  if (typeof r2.bucketName !== 'string') {
+    const bucketName = `static-${sha1(Math.random())}`.substring(0, 12);
+    sh.exec(`wrangler r2 bucket create ${bucketName}`);
+    r2.bucketName = bucketName;
+    r2.previewBucketName = bucketName;
+    upWranglerConfig({ r2Buckets });
+  } else if (typeof r2.previewBucketName !== 'string') {
+    r2.previewBucketName = r2.bucketName;
+    upWranglerConfig({ r2Buckets });
+  }
 });
