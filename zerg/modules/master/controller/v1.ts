@@ -17,11 +17,7 @@ export class ControllerMasterV1 {
 
   @GET('test') async test() {
     const master = new ModelMaster();
-    const result = await master.remove({
-      where: {
-        and: { id: 2 },
-      },
-    });
+    const result = await master.find(1);
     return result;
   }
 }
