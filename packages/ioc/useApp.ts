@@ -8,8 +8,15 @@ import { WranglerEnv } from './server/WranglerEnv';
 export const useApp = async (ctx: Context) => {
   // 注入dto参数
   const post = await ctx.getBody();
-  const parmas = ctx.params;
-  Object.assign(Dto.params, { ...parmas, ...post });
+  Dto.params = { ...ctx.params };
+  if (post instanceof FormData) {
+    const entries = post.entries();
+    for (const item of entries) {
+      Dto.params[item[0]] = item[1];
+    }
+  } else {
+    Object.assign(Dto.params, { ...post });
+  }
 
   WranglerEnv.ctx = ctx;
 };

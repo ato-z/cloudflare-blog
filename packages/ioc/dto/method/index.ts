@@ -1,5 +1,6 @@
 export * from './length';
 export * from './required';
+export * from './isBase64';
 
 type PropName = string;
 type CheckHandle = (...args: any[]) => any;
