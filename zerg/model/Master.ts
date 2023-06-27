@@ -1,6 +1,6 @@
 import { ModelBase } from './Base';
 
-type Master = {
+export type Master = {
   id: number;
   name: string;
   nickname: string;
