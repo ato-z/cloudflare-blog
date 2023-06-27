@@ -1,5 +1,8 @@
 import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
-import { ExceptionMissToken } from '@zerg/exception/accredit';
+import {
+  ExceptionMissToken,
+  ExceptionTrespassToken,
+} from '@zerg/exception/accredit';
 import { TmpKv } from './TmpKv';
 import { Master } from '@zerg/model/Master';
 
@@ -10,10 +13,19 @@ export class ServiceToken extends WranglerEnv {
 
   private readonly tokenMap = new Map<string, TokenData>();
 
+  /** 当前访问者的ip */
+  get currentIp() {
+    const { ctx } = this;
+    const ip = ctx.headers.get('CF-Connecting-IP') ?? '0.0.0.0';
+    return ip;
+  }
+
+  /** 用户储存临时数据的kv地址 */
   get tmpKv() {
     return TmpKv.instance();
   }
 
+  /** 当前访问者token */
   get token() {
     const { ctx } = this;
     const token = ctx.headers.get('token');
@@ -24,6 +36,9 @@ export class ServiceToken extends WranglerEnv {
     return token;
   }
 
+  /**
+   * 传入token字符串返回token信息
+   */
   private async getTokenData(token: string) {
     const { tokenMap, tmpKv } = this;
     if (tokenMap.has(token)) {
@@ -37,6 +52,17 @@ export class ServiceToken extends WranglerEnv {
 
     tokenMap.set(token, kvData);
     return kvData;
+  }
+
+  /**
+   * 校验当前token的合法性
+   */
+  async checkCurrent() {
+    const { token, currentIp } = this;
+    const tokenData = await this.getTokenData(token);
+    if (currentIp !== tokenData.ip) {
+      throw new ExceptionTrespassToken();
+    }
   }
 
   /**
