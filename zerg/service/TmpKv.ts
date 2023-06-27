@@ -1,7 +1,6 @@
 import { KvStore } from '@ato-z/helper';
 import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
-import { appConfig } from '@zerg/config/app';
-const { expTime } = appConfig;
+
 /**
  * 存放临时数据的kv
  */
@@ -20,9 +19,17 @@ export class TmpKv extends WranglerEnv {
     return store;
   }
 
-  async put(key: string, content: Record<string | number, unknown>) {
+  async put(
+    key: string,
+    content: Record<string | number, unknown>,
+    op: {
+      metadata?: Record<string | number, unknown>;
+      expiration?: number;
+      expirationTtl?: number;
+    } = {},
+  ) {
     const { kv } = this;
-    await kv.push(key, content, { expirationTtl: expTime.sign });
+    await kv.push(key, content, op);
   }
 
   async get<R extends Record<string, unknown>>(key: string) {
