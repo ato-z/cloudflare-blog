@@ -22,5 +22,6 @@ id="9ca83df5bf974bc7b52f7723d558f3d5"
 binding="KV"
 
 [[r2_buckets]]
+preview_bucket_name="static-0da64"
 bucket_name="static-0da64"
 binding="R2Static"
