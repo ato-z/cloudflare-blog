@@ -1,7 +1,6 @@
 import { touchValidate } from './touchValidate';
 
 const isDate = (value: unknown, msg?: string) => {
-  console.log(value);
   if (isNaN(new Date(<string>value).getTime())) {
     throw new TypeError(msg ?? '不是一个时间戳或符合时间格式字符串');
   }
