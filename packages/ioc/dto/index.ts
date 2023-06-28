@@ -59,7 +59,7 @@ export class Dto {
   private merge() {
     const props = Object.keys(this);
     props.forEach(key => {
-      if (key !== '_withNames_') {
+      if (key !== '_withNames_' && Dto.params[key] !== undefined) {
         this[key] = Dto.params[key];
       }
     });
