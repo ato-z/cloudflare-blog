@@ -65,17 +65,15 @@ export class Context<P = Record<string, string>> {
       '';
 
     if (/multipart\/form-data/i.test(contentType)) {
-      const body = await request.formData();
-      this._body = body;
+      this._body = request.formData();
     } else if (/application\/x-www-form-urlencoded/i.test(contentType)) {
-      const urlencoded = await request.text();
-      this._body = partParams(urlencoded);
+      this._body = request.text().then(partParams);
     } else if (/application\/json/i.test(contentType)) {
-      this._body = await request.json();
+      this._body = request.json();
     } else {
-      this._body = await request.text();
+      this._body = request.text();
     }
 
-    return this._body;
+    return await this._body;
   }
 }
