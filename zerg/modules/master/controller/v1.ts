@@ -1,6 +1,5 @@
-import { type Context, POST, GET, Controller } from '@ato-z/ioc';
+import { POST, GET, Controller } from '@ato-z/ioc';
 import { LoginDto } from '../dto/Login';
-import { ModelMaster } from '@zerg/model/Master';
 import { ServiceSign } from '@zerg/service/Sign';
 import { ServiceToken } from '@zerg/service/Token';
 
