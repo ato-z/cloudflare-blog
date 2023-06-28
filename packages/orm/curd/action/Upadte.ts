@@ -7,7 +7,7 @@ import { filterSqlVal } from '../core/filterSqlVal';
  * UPDATE 所更新的字段
  */
 const withUpdateSet = (updata: object): string => {
-  const keys = Object.keys(updata);
+  const keys = Object.keys(updata).filter(key => updata[key] !== undefined);
   return keys
     .map(key => {
       const val = filterSqlVal(Reflect.get(updata, key), key);
