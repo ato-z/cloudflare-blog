@@ -49,7 +49,7 @@ export class Context<P = Record<string, string>> {
 
   private async withBody() {
     const { request, headers, method } = this;
-    if (!/post/i.test(method)) {
+    if (!/post|put|patch/i.test(method)) {
       return {};
     }
 
