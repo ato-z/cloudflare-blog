@@ -1,4 +1,4 @@
-import { Dto } from '@ato-z/ioc/dto';
+import { Dto, IsInt } from '@ato-z/ioc/dto';
 import { ExceptionParam } from '@zerg/exception';
 
 export class BaseDto extends Dto {
@@ -13,4 +13,15 @@ export class BaseDto extends Dto {
       throw err;
     }
   }
+}
+
+/**
+ * 分页参数
+ */
+export class PageParamDto extends BaseDto {
+  @IsInt()
+  start: number = 0;
+
+  @IsInt()
+  end: number = 15;
 }
