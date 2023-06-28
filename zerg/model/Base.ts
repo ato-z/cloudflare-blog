@@ -76,7 +76,8 @@ export abstract class ModelBase<T> extends Model {
     post: Omit<T, this['primaryKey']> | Omit<T, this['primaryKey']>[],
   ) {
     const { tableName } = this;
-    const sql = Insert<any>(tableName, post);
+    const entries = Object.entries(post).map(([key, value]) => [key, value]);
+    const sql = Insert<any>(tableName, Object.fromEntries(entries));
     const result = await this.run(sql);
     return result;
   }
