@@ -1,3 +1,4 @@
+import { jumpHandle } from './method/isLoose';
 import { touchValidate, type Validate } from './method/touchValidate';
 export * from './method';
 
@@ -16,9 +17,10 @@ export class Dto {
 
       const [name, handle] = cur;
       const value = Reflect.get(this, name);
-      await handle(value);
-
-      await trigger();
+      if (!(handle === jumpHandle && (value === undefined || value === null))) {
+        await handle(value);
+        await trigger();
+      }
     };
 
     try {
