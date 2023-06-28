@@ -5,6 +5,8 @@ export * from './method';
 export class Dto {
   static params: Record<string, unknown> = {};
 
+  private _withNames_ = new Set<string>();
+
   async check() {
     this.merge();
     const validate = [...touchValidate(this)];
@@ -16,11 +18,16 @@ export class Dto {
       }
 
       const [name, handle] = cur;
-      const value = Reflect.get(this, name);
-      if (!(handle === jumpHandle && (value === undefined || value === null))) {
-        await handle(value);
-        await trigger();
+      if (!this._withNames_.has(name)) {
+        const value = Reflect.get(this, name);
+        if (handle === jumpHandle && (value === undefined || value === null)) {
+          this._withNames_.add(name);
+        } else {
+          await handle(value);
+        }
       }
+
+      await trigger();
     };
 
     try {
@@ -45,7 +52,9 @@ export class Dto {
   private merge() {
     const props = Object.keys(this);
     props.forEach(key => {
-      this[key] = Dto.params[key];
+      if (key !== '_withNames_') {
+        this[key] = Dto.params[key];
+      }
     });
   }
 }
