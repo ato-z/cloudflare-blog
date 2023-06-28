@@ -1,5 +1,5 @@
 import { Length, Required } from '@ato-z/ioc/dto';
-import { BaseDto } from '@zerg/modules/Dto';
+import { BaseDto } from '@zerg/dto';
 
 export class LoginDto extends BaseDto {
   @Length(4, 12)
