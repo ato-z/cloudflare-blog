@@ -1,12 +1,22 @@
+import { jumpHandle } from './method/isLoose';
 import { touchValidate, type Validate } from './method/touchValidate';
 export * from './method';
 
 export class Dto {
   static params: Record<string, unknown> = {};
 
+  constructor() {
+    Object.defineProperty(this, '_withNames', {
+      value: new Set<string>(),
+      enumerable: false,
+      writable: false,
+    });
+  }
+
   async check() {
     this.merge();
     const validate = [...touchValidate(this)];
+    const _withNames = <Set<string>>Reflect.get(this, '_withNames');
     let cur: Validate | undefined;
     const trigger = async () => {
       cur = validate.shift();
@@ -15,8 +25,14 @@ export class Dto {
       }
 
       const [name, handle] = cur;
-      const value = Reflect.get(this, name);
-      await handle(value);
+      if (!_withNames.has(name)) {
+        const value = Reflect.get(this, name);
+        if (handle === jumpHandle && (value === undefined || value === null)) {
+          _withNames.add(name);
+        } else {
+          await handle(value);
+        }
+      }
 
       await trigger();
     };
@@ -43,7 +59,9 @@ export class Dto {
   private merge() {
     const props = Object.keys(this);
     props.forEach(key => {
-      this[key] = Dto.params[key];
+      if (key !== '_withNames_' && Dto.params[key] !== undefined) {
+        this[key] = Dto.params[key];
+      }
     });
   }
 }

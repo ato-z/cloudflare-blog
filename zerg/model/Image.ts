@@ -1,7 +1,7 @@
 import { IMAGE_FROM } from '@zerg/enum';
 import { ModelBase } from './Base';
 
-type Image = {
+export type Image = {
   id: number;
   path: string;
   hash: string;

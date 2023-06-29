@@ -74,8 +74,8 @@ const withInsertData = (fields: string[], list: object[]): string => {
   list.forEach(item => {
     const itemVal: Array<string | number> = [];
     fields.forEach(key => {
-      const val = filterSqlVal(Reflect.get(item, key), key);
-      itemVal.push(val);
+      const val = filterSqlVal(Reflect.get(item, key) ?? null, key);
+      itemVal.push(val ?? 'NULL');
     });
     vals.push(`(${itemVal.join(',')})`);
   });
