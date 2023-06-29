@@ -1,3 +1,4 @@
+import { imageFind } from '@zerg/helper';
 import { ModelBase } from './Base';
 
 export type Article = {
@@ -25,6 +26,10 @@ export class ModelArticle extends ModelBase<Article> {
       }
 
       return <string>value;
+    },
+
+    cover(value: unknown) {
+      return imageFind.getById(value);
     },
   };
 }
