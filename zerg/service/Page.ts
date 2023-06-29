@@ -26,6 +26,6 @@ export class ServicePage<T> {
     const stmt = model.db.prepare(sql);
     const total = await stmt.first('total');
 
-    return { list, total };
+    return { total, list };
   }
 }
