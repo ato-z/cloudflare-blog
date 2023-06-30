@@ -5,7 +5,7 @@ import { ImgBase64Dto } from '../dto/ImgBase64';
 @Controller('v1')
 export class ControllerUploadV1 {
   /**
-   * @api {get} /upload/v1/img/base64   返回指定表下的列表
+   * @api {get} /upload/v1/img/base64   上传图像
    * @apiVersion 1.0.0
    * @apiName uploadImage
    * @apiGroup upload
