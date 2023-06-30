@@ -1,5 +1,6 @@
 import { BaseException, ExceptionUnknown } from '@zerg/exception';
 import type { Context } from '@ato-z/ioc';
+import { ServiceLog } from '@zerg/service/Log';
 
 /** 异常中间件 */
 export const middlewareException = async (
@@ -12,6 +13,12 @@ export const middlewareException = async (
   } catch (err: unknown) {
     if (err instanceof BaseException) {
       return err.toResponse();
+    }
+
+    if (err instanceof Error) {
+      await ServiceLog.add(err, ctx);
+      const serviceError = new ExceptionUnknown(err.message);
+      return serviceError.toResponse();
     }
   }
 

@@ -12,7 +12,10 @@ export class ServicePage<T> {
     protected readonly where: SelectOption<ModelBase<T>>,
   ) {}
 
-  async list(pageParam: PageParamDto, field: Array<keyof T & string>) {
+  async list(
+    pageParam: PageParamDto,
+    field: Array<keyof T & string> = [<keyof T & string>'*'],
+  ) {
     const { model, where } = this;
     const { start, end } = pageParam;
     const codeList = await model.select({
