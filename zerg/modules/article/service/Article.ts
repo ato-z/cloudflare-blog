@@ -67,9 +67,13 @@ export class ServiceArticle {
       post.tags = ServiceTags.deDuplication(post.tags);
     }
 
-    const result = await this.modelArticle.update(post, {
-      where: { and: { id } },
-    });
+    const updateDate = date('y/m/d h:i:s', getCurrentDate());
+    const result = await this.modelArticle.update(
+      { updateDate, ...post },
+      {
+        where: { and: { id } },
+      },
+    );
     return result.meta;
   }
 
