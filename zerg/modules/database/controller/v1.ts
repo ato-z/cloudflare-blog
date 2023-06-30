@@ -37,7 +37,6 @@ export class ControllerDatabaseV1 {
    * @apiHeader {String}   Content-Type application/json
    * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
    *
-   * @apiSuccessExample {File} 发起下载
    */
   @GET('dump') async dump() {
     const server = new ServiceDb();
