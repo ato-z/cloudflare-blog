@@ -1,4 +1,4 @@
-import { Controller, DELETE, GET, PATCH, POST } from '@ato-z/ioc';
+import { Controller, DELETE, GET, PATCH } from '@ato-z/ioc';
 import { ServiceDb } from '../service/Db';
 import { TablePageDto } from '../dto/TablePage';
 import { TableEditDto } from '../dto/TableEdit';
