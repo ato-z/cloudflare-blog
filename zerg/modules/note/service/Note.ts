@@ -1,4 +1,3 @@
-import { PageParamDto } from '@zerg/dto';
 import { ModelNote, Note } from '@zerg/model/Note';
 import { ServicePage } from '@zerg/service/Page';
 import { NoteAddDto } from '../dto/Add';
@@ -6,14 +5,22 @@ import { ServiceTags } from '@zerg/service/Tags';
 import { date, getCurrentDate } from '@ato-z/helper';
 import { NoteEditDto } from '../dto/Edit';
 import { ExceptionParam } from '@zerg/exception';
+import { NotePageDto } from '../dto/ArticlePage';
 
 export class ServiceNote {
   modelNote = new ModelNote();
 
   /** 列表 */
-  async list(pageParam: PageParamDto) {
+  async list(pageParam: NotePageDto) {
+    const where = { deleteDate: null };
+    if (pageParam.title) {
+      Reflect.set(where, 'title', ['LIKE', `%${pageParam.title}%`]);
+    }
+    if (pageParam.tags) {
+      Reflect.set(where, 'tags', ['LIKE', `%,${pageParam.tags},%`]);
+    }
     const servicePage = new ServicePage<Note>(this.modelNote, {
-      and: { deleteDate: null },
+      and: where,
     });
 
     return servicePage.list(pageParam, [

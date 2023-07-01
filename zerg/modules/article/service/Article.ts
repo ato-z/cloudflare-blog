@@ -2,18 +2,31 @@ import { ServiceTags } from '@zerg/service/Tags';
 import { ArticleAddDto } from '../dto/Add';
 import { date, getCurrentDate } from '@ato-z/helper';
 import { ModelArticle, Article } from '@zerg/model/Article';
+import {
+  ModelArticleObserve,
+  ArticleObserve,
+} from '@zerg/model/ArticleObserve';
 import { ArticleEditDto } from '../dto/Edit';
 import { ExceptionParam } from '@zerg/exception';
-import { PageParamDto } from '@zerg/dto';
 import { ServicePage } from '@zerg/service/Page';
+import { ArticlePageDto } from '../dto/ArticlePage';
+import { ArticleObservePageDto } from '../dto/ArticleObservePage';
 
 export class ServiceArticle {
   protected modelArticle = new ModelArticle();
+  protected modelArticleObserve = new ModelArticleObserve();
 
   /** 列表 */
-  async list(pageParam: PageParamDto) {
+  async list(pageParam: ArticlePageDto) {
+    const where = { deleteDate: null };
+    if (pageParam.title) {
+      Reflect.set(where, 'title', ['LIKE', `%${pageParam.title}%`]);
+    }
+    if (pageParam.tags) {
+      Reflect.set(where, 'tags', ['LIKE', `%,${pageParam.tags},%`]);
+    }
     const servicePage = new ServicePage<Article>(this.modelArticle, {
-      and: { deleteDate: null },
+      and: where,
     });
 
     return servicePage.list(pageParam, [
@@ -27,12 +40,39 @@ export class ServiceArticle {
     ]);
   }
 
-  /** 详情 */
-  async detail(id?: string | null) {
-    if (typeof id !== 'string') {
-      throw new ExceptionParam('id 不能为空');
+  /** 所有评论列表 */
+  async observeList(pageParam: ArticleObservePageDto) {
+    const where = {};
+    if (pageParam.uid) {
+      Reflect.set(where, 'uid', pageParam.uid);
+    }
+    if (pageParam.articleId) {
+      Reflect.set(where, 'articleId', pageParam.articleId);
     }
 
+    const whereAnd = Object.keys(where).length ? where : undefined;
+    const servicePage = new ServicePage<ArticleObserve>(
+      this.modelArticleObserve,
+      {
+        and: whereAnd,
+      },
+    );
+
+    return servicePage.list(pageParam);
+  }
+
+  /** 评论 */
+  async observeOne(id: string) {
+    const { modelArticleObserve } = this;
+    const codeList = await modelArticleObserve.select({
+      where: { and: { articleId: id } },
+    });
+
+    return codeList.list;
+  }
+
+  /** 详情 */
+  async detail(id: string) {
     const result = await this.modelArticle.find(id);
     if (result === null) {
       throw new ExceptionParam('文章不存在');
