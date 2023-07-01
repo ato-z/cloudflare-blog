@@ -3,6 +3,5 @@ CREATE TABLE IF NOT EXISTS `az_passerby` (
     `email` TEXT,
     `nickname` TEXT,
     `lastIp` TEXT,
-    `state` INTEGER,
     `createDate` TEXT
 )
