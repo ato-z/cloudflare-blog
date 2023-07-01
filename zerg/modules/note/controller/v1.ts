@@ -1,8 +1,8 @@
 import { Context, Controller, GET, PATCH, POST } from '@ato-z/ioc';
-import { PageParamDto } from '@zerg/dto';
 import { ServiceNote } from '../service/Note';
 import { NoteAddDto } from '../dto/Add';
 import { NoteEditDto } from '../dto/Edit';
+import { NotePageDto } from '../dto/ArticlePage';
 
 @Controller('v1')
 export class ControllerNoteV1 {
@@ -16,7 +16,9 @@ export class ControllerNoteV1 {
    * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
    *
    * @apiParam {String} [start=0]      跳过条目
-   * @apiParam {String} [end=15]        获取条目
+   * @apiParam {String} [end=15]       获取条目
+   * @apiParam {String} [title]        标题
+   * @apiParam {String} [tags]         标签
    *
    * @apiSuccessExample {json} 成功响应:
    * {
@@ -34,7 +36,7 @@ export class ControllerNoteV1 {
    * }
    */
   @GET('list') async list() {
-    const pageParam = new PageParamDto();
+    const pageParam = new NotePageDto();
     await pageParam.check();
     const serviceNote = new ServiceNote();
     const result = await serviceNote.list(pageParam);
