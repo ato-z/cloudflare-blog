@@ -8,7 +8,7 @@ export class ServiceLog {
   static async add(err: Error, ctx: Context) {
     try {
       const { message, stack } = err;
-      const createDate = date('y-m-d h:i:s', getCurrentDate());
+      const createDate = date('y/m/d h:i:s', getCurrentDate());
       const { method, url, params, header, body } = await this.getPropByCtx(
         ctx,
       );
