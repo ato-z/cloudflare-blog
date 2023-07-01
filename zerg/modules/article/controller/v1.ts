@@ -16,7 +16,9 @@ export class ControllerArticleV1 {
    * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
    *
    * @apiParam {String} [start=0]      跳过条目
-   * @apiParam {String} [end=15]        获取条目
+   * @apiParam {String} [end=15]       获取条目
+   * @apiParam {String} [title]        标题
+   * @apiParam {String} [tags]         标签
    *
    * @apiSuccessExample {json} 成功响应:
    * {
