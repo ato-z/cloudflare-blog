@@ -1,11 +1,12 @@
-import { POST, Controller } from '@ato-z/ioc';
+import { POST, Controller, GET } from '@ato-z/ioc';
 import { ServiceUploadImage } from '@zerg/service/UploadImage';
 import { ImgBase64Dto } from '../dto/ImgBase64';
+import { PageParamDto } from '@zerg/dto';
 
 @Controller('v1')
 export class ControllerUploadV1 {
   /**
-   * @api {get} /upload/v1/img/base64   上传图像
+   * @api {post} /upload/v1/img/base64   上传图像
    * @apiVersion 1.0.0
    * @apiName uploadImage
    * @apiGroup upload
@@ -25,5 +26,23 @@ export class ControllerUploadV1 {
     const serviceUpload = new ServiceUploadImage();
     const result = await serviceUpload.byBase64(post);
     return result;
+  }
+
+  /**
+   * @api {get} /upload/v1/img/list   已上传的图像列表
+   * @apiVersion 1.0.0
+   * @apiName uploadImageList
+   * @apiGroup upload
+   *
+   * @apiParam {String} [start=0]      跳过条目
+   * @apiParam {String} [end=15]       获取条目
+   *
+   * @apiBody {String}    color    颜色色码
+   */
+  @GET('img/list') async imgList() {
+    const pageParam = new PageParamDto();
+    await pageParam.check();
+    const serviceUpload = new ServiceUploadImage();
+    return serviceUpload.list(pageParam);
   }
 }

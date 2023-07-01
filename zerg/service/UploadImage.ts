@@ -3,15 +3,25 @@ import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
 import { ExceptionParam } from '@zerg/exception';
 import { appConfig } from '@zerg/config/app';
 import { IMAGE_FROM } from '@zerg/enum';
-import { ModelImage } from '@zerg/model/Image';
+import { Image, ModelImage } from '@zerg/model/Image';
 import { ImgBase64Dto } from '@zerg/modules/upload/dto/ImgBase64';
 import { ServiceFile } from './File';
 import sha from 'sha1';
+import { PageParamDto } from '@zerg/dto';
+import { ServicePage } from './Page';
 
 const { maxImgFile } = appConfig;
 export class ServiceUploadImage extends WranglerEnv {
   protected modelImage = new ModelImage();
 
+  /** 返回表中的图像列表 */
+  async list(pageParam: PageParamDto) {
+    const model = this.modelImage;
+    const servicePage = new ServicePage<Image>(model, {});
+    return servicePage.list(pageParam);
+  }
+
+  /** 通过base64上传图像 */
   async byBase64(post: ImgBase64Dto) {
     const hash = sha(post.img);
 
@@ -32,6 +42,9 @@ export class ServiceUploadImage extends WranglerEnv {
     };
   }
 
+  /**
+   * 查询图像是否已存于d1数据库中
+   */
   private async hashInD1(hash: string) {
     const { modelImage } = this;
     console.log(hash);
@@ -46,6 +59,7 @@ export class ServiceUploadImage extends WranglerEnv {
     return first;
   }
 
+  /** 保存图像到r2存储桶 */
   private async saveToR2(hash: string, post: ImgBase64Dto) {
     const img = ServiceFile.base64ToUint8Array(post.img);
     const thumb = post.thumb
@@ -72,6 +86,7 @@ export class ServiceUploadImage extends WranglerEnv {
     return img;
   }
 
+  /** 保存到d1数据库 */
   private saveToD1(hash: string, img: ArrayBuffer, post: ImgBase64Dto) {
     const from = IMAGE_FROM.R2;
     const createDate = date('y-m-d h:i:s');
