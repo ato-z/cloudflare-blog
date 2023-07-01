@@ -25,6 +25,7 @@ export class ControllerExceptionV1 {
    */
   @GET('list') async list() {
     const pageParam = new PageParamDto();
+    await pageParam.check();
     const service = new ServiceException();
     return service.list(pageParam);
   }
