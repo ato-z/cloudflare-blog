@@ -13,9 +13,7 @@ export const middlewareException = async (
   } catch (err: unknown) {
     if (err instanceof BaseException) {
       return err.toResponse();
-    }
-
-    if (err instanceof Error) {
+    } else if (err instanceof Error) {
       await ServiceLog.add(err, ctx);
       const serviceError = new ExceptionUnknown(err.message);
       return serviceError.toResponse();
