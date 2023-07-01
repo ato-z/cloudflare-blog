@@ -2,7 +2,7 @@ import { Context, Controller, GET, PATCH, POST } from '@ato-z/ioc';
 import { ArticleAddDto } from '../dto/Add';
 import { ServiceArticle } from '../service/Article';
 import { ArticleEditDto } from '../dto/Edit';
-import { PageParamDto } from '@zerg/dto';
+import { ArticlePageDto } from '../dto/ArticlePage';
 
 @Controller('v1')
 export class ControllerArticleV1 {
@@ -36,7 +36,7 @@ export class ControllerArticleV1 {
    * }
    */
   @GET('list') async list() {
-    const pageParam = new PageParamDto();
+    const pageParam = new ArticlePageDto();
     await pageParam.check();
     const serviceArticle = new ServiceArticle();
     const result = await serviceArticle.list(pageParam);

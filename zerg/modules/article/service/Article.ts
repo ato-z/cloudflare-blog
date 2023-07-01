@@ -4,16 +4,23 @@ import { date, getCurrentDate } from '@ato-z/helper';
 import { ModelArticle, Article } from '@zerg/model/Article';
 import { ArticleEditDto } from '../dto/Edit';
 import { ExceptionParam } from '@zerg/exception';
-import { PageParamDto } from '@zerg/dto';
 import { ServicePage } from '@zerg/service/Page';
+import { ArticlePageDto } from '../dto/ArticlePage';
 
 export class ServiceArticle {
   protected modelArticle = new ModelArticle();
 
   /** 列表 */
-  async list(pageParam: PageParamDto) {
+  async list(pageParam: ArticlePageDto) {
+    const where = { deleteDate: null };
+    if (pageParam.title) {
+      Reflect.set(where, 'title', ['LIKE', `%${pageParam.title}%`]);
+    }
+    if (pageParam.tags) {
+      Reflect.set(where, 'tags', ['LIKE', `%,${pageParam.tags},%`]);
+    }
     const servicePage = new ServicePage<Article>(this.modelArticle, {
-      and: { deleteDate: null },
+      and: where,
     });
 
     return servicePage.list(pageParam, [
