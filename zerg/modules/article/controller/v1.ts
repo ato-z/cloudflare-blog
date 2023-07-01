@@ -3,6 +3,8 @@ import { ArticleAddDto } from '../dto/Add';
 import { ServiceArticle } from '../service/Article';
 import { ArticleEditDto } from '../dto/Edit';
 import { ArticlePageDto } from '../dto/ArticlePage';
+import { ArticleOneDto } from '../dto/One';
+import { ArticleObservePageDto } from '../dto/ArticleObservePage';
 
 @Controller('v1')
 export class ControllerArticleV1 {
@@ -81,11 +83,42 @@ export class ControllerArticleV1 {
       "pubDate": "2023/06/28 15:41:05"
    * }
    */
-  @GET('detail') async detail({ params }: Context) {
+  @GET('detail') async detail() {
+    const params = new ArticleOneDto();
+    await params.check();
     const { id } = params;
     const serviceArticle = new ServiceArticle();
     const detail = await serviceArticle.detail(id);
     return detail;
+  }
+
+  /**
+   * @api {get} /article/v1/observe   单篇文章评论
+   * @apiVersion 1.0.0
+   * @apiName articleList
+   * @apiGroup article
+   *
+   * @apiHeader {String}   Content-Type application/json
+   * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
+   *
+   * @apiParam {String}  id       文章id
+   *
+   */
+  @GET('observe/one') async observeOne() {
+    const params = new ArticleOneDto();
+    await params.check();
+    const { id } = params;
+    const serviceArticle = new ServiceArticle();
+    const list = await serviceArticle.observeOne(id);
+    return list;
+  }
+
+  @GET('observe/list') async observe() {
+    const params = new ArticleObservePageDto();
+    params.check();
+    const serviceArticle = new ServiceArticle();
+    const list = await serviceArticle.observeList(params);
+    return list;
   }
 
   /**
