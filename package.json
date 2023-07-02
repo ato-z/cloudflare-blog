@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "wrangler:deploy": "node scripts/wrangler/deploy.js",
-    "wrangler:dev": "node scripts/wrangler/dev.js",
-    "wrangler:new": "node scripts/wrangler/new.js",
-    "wrangler:init": "node scripts/wrangler/init.js",
-    "wrangler:algin": "node scripts/wrangler/algin.js",
-    "wrangler:install": "node scripts/wrangler/install.js",
+    "workers:deploy": "node scripts/workers/deploy.js",
+    "workers:dev": "node scripts/workers/dev.js",
+    "workers:new": "node scripts/workers/new.js",
+    "workers:init": "node scripts/workers/init.js",
+    "workers:algin": "node scripts/workers/algin.js",
+    "workers:install": "node scripts/workers/install.js",
     "build:apidoc": "apidoc -i zerg/modules -o apidoc"
   },
   "keywords": [],
