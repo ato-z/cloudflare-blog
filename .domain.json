@@ -1,0 +1,12 @@
+{
+  "zerg": {
+    "api": {
+      "target": "<example.com|你的域名>",
+      "zoneId": "<区域id>"
+    },
+    "web": {
+      "target": "<example.com|你的域名>",
+      "zoneId": "<区域id>"
+    }
+  }
+}

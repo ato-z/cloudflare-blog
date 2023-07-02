@@ -1,13 +1,13 @@
 const path = require('path');
 const fs = require('fs');
 const wranglerConfig = require('../.wrangler.json');
+const domainConfig = require('../.domain.json');
 const prettier = require('prettier');
 const prettierrc = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../.prettierrc')),
 );
 
-const { domain } = wranglerConfig;
-delete wranglerConfig.domain;
+const domainApi = domainConfig.zerg.api;
 
 // 路径配置
 const pathMap = (() => {
@@ -92,13 +92,10 @@ const toToml = obj => {
 /** 更新公共配置 */
 const upWranglerConfig = obj => {
   Object.assign(wranglerConfig, obj);
-  const codeJson = prettier.format(
-    JSON.stringify({ domain, ...wranglerConfig }),
-    {
-      ...prettierrc,
-      parser: 'json',
-    },
-  );
+  const codeJson = prettier.format(JSON.stringify(wranglerConfig), {
+    ...prettierrc,
+    parser: 'json',
+  });
 
   fs.writeFileSync(path.resolve(pathMap.root, '.wrangler.json'), codeJson);
 };
@@ -116,7 +113,7 @@ module.exports = {
   pathMap,
   toToml,
   wranglerConfig,
-  domain,
+  domainApi,
   prettierrc,
   upWranglerConfig,
   withDir,
