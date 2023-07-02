@@ -26,9 +26,9 @@ npx wrangler login
 sudo npx wrangler log
 ```
 
-## 🧩 线上域名配置
+## 🧩 线上配置
 
-> 修改根目录下的 `.domain.json`， 查看[zoomId](https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/) 获取
+修改根目录下的 `.domain.json`， 查看[zoomId](https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/) 获取
 
 ```json
 {
@@ -44,6 +44,14 @@ sudo npx wrangler log
       "zoneId": "<区域id>"
     }
   }
+}
+```
+
+配置[账户 id](https://developers.cloudflare.com/workers/wrangler/configuration/)，用于发布 workers
+
+```json
+{
+  "accountId": "你的账户id"
 }
 ```
 
