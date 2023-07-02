@@ -47,7 +47,7 @@ sudo npx wrangler log
 }
 ```
 
-配置[账户 id](https://developers.cloudflare.com/workers/wrangler/configuration/)，用于发布 workers
+修改根目录下的 `.wrangler.json`, 配置[账户 id](https://developers.cloudflare.com/workers/wrangler/configuration/)，用于发布 workers
 
 ```json
 {
