@@ -39,7 +39,10 @@ const pathMap = (() => {
 
     return /\.sql$/i.test(file);
   });
-  return { root, zerg, modules, moduleList, sql, sqlList };
+
+  const page = path.resolve(root, 'web');
+  const pageBuild = path.resolve(page, 'dist');
+  return { root, zerg, modules, moduleList, sql, sqlList, page, pageBuild };
 })();
 
 /** 大写字母转下划线 */
@@ -109,6 +112,12 @@ const withDir = dir => {
   }
 };
 
+/** pages配置 */
+const pages = (() => {
+  const name = `zerg-web-${wranglerConfig.name}`;
+  return { name };
+})();
+
 module.exports = {
   pathMap,
   toToml,
@@ -117,4 +126,5 @@ module.exports = {
   prettierrc,
   upWranglerConfig,
   withDir,
+  pages,
 };
