@@ -26,9 +26,9 @@ npx wrangler login
 sudo npx wrangler log
 ```
 
-## 🧩 线上域名配置
+## 🧩 线上配置
 
-> 修改根目录下的 `.domain.json`， 查看[zoomId](https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/) 获取
+修改根目录下的 `.domain.json`， 查看[zoomId](https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/) 获取
 
 ```json
 {
@@ -47,12 +47,23 @@ sudo npx wrangler log
 }
 ```
 
+修改根目录下的 `.wrangler.json`, 配置[账户 id](https://developers.cloudflare.com/workers/wrangler/configuration/)，用于发布 workers
+
+```json
+{
+  "accountId": "你的账户id"
+}
+```
+
 ## 🛞 部署到线上 api
 
 初始化 d1 r2 kv 环境，必须在 `npx wrangler login` 登录过后执行
 
 ```sh
 npm run workers:init
+
+# 对齐所有workers配置
+npm run workers:algin
 ```
 
 创建 d1 数据库
@@ -79,4 +90,12 @@ npm run workers:deploy
 
 ```sh
 npm run workers:dev
+```
+
+## 🚀 接口文档
+
+根目录下 `apidoc` 为打包生成的接口文档，不存在执行`npm run build:apidoc`生成
+
+```sh
+npm run build:apidoc
 ```
