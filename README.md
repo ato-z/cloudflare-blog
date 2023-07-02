@@ -61,6 +61,9 @@ sudo npx wrangler log
 
 ```sh
 npm run workers:init
+
+# 对齐所有workers配置
+npm run workers:algin
 ```
 
 创建 d1 数据库
