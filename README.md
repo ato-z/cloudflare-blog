@@ -91,3 +91,11 @@ npm run workers:deploy
 ```sh
 npm run workers:dev
 ```
+
+## 🚀 接口文档
+
+根目录下 `apidoc` 为打包生成的接口文档，不存在执行`npm run build:apidoc`生成
+
+```sh
+npm run build:apidoc
+```
