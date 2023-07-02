@@ -7,8 +7,11 @@ const {
   prettierrc,
   wranglerConfig,
   toToml,
-  domain,
+  domainApi,
 } = require('../helper');
+
+const domain = domainApi;
+
 /**
  * 创建一个新模块
  */

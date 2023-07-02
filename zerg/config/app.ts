@@ -1,12 +1,13 @@
 export const appConfig = {
+  /** 网站描述 */
+  site: {
+    title: '博客后台管理',
+    version: 'v1',
+  },
   /** 数据库配置 */
   database: {
     tablePrefix: 'az_',
     dbname: 'DB',
-  },
-  /** 网站 */
-  site: {
-    title: '博客后台管理',
   },
   /** 随机加密盐 */
   hash: '2K1cL@%KMT$mymP7',

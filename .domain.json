@@ -1,0 +1,12 @@
+{
+  "zerg": {
+    "api": {
+      "target": "api.atoz.ltd",
+      "zoneId": "b892eb8864058dab1d6dcf29348de276"
+    },
+    "web": {
+      "target": "<example.com|你的域名>",
+      "zoneId": "<区域id>"
+    }
+  }
+}
