@@ -11,8 +11,8 @@ export const middlewareToken = async (
   ctx: Context,
   next: (ctx: Context) => unknown,
 ) => {
-  const { url } = ctx;
-  if (!reg.test(url)) {
+  const { url, method } = ctx;
+  if (!reg.test(url) && method !== 'OPTIONS') {
     await ServiceToken.instance.checkCurrent();
   }
 
