@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import 'antd/dist/reset.css';
 import { Login } from '@web/pages/login';
 import { RequireAuth } from '@web/pages/auth';
 import { IframeLayout } from '@web/pages/layout';

@@ -1,3 +1,9 @@
-import { atom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 
-export const signAtom = atom(null);
+const sign = window.localStorage.getItem('sign');
+export const signAtom = atom(sign, (get, set, newPrice: string) => {
+  set(signAtom, newPrice);
+  window.localStorage.setItem('sign', newPrice);
+  return sign;
+});
+export const useSign = () => useAtom(signAtom);
