@@ -23,7 +23,7 @@ const getTokenByZerg = async () => {
 
   window.localStorage.setItem('token', result.token);
   token = result.token;
-  return token;
+  return result.token;
 };
 
 /** 发起请求前 */
@@ -31,18 +31,39 @@ axiosInstance.interceptors.request.use(async config => {
   const { url } = config;
   if (url === '/master/v1/token' || url === '/master/v1/login') return config;
 
+  const { headers } = config;
   const token = await getToken();
-  config.headers.token = token;
+  headers.token = token;
 
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   res => res.data,
-  err => {
+  async err => {
     const { response } = err;
-    console.log('err', err);
-    if (response?.data) return Promise.reject(response.data);
+    if (response?.data) {
+      const data: { errorCode: number } = response.data;
+
+      // sign失效， 重登
+      if (data.errorCode === 3000) {
+        const { location } = window;
+        window.localStorage.removeItem('sign');
+        if (location.pathname !== '/login') {
+          location.reload();
+        }
+      }
+
+      // token失效, 刷新token并重发
+      if (data.errorCode === 4000) {
+        await getTokenByZerg();
+        return axiosInstance(response.config);
+      }
+
+      return Promise.reject(data);
+    }
+
+    return Promise.reject(err);
   },
 );
 
