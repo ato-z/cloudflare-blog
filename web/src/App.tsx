@@ -1,10 +1,21 @@
-import { Button } from 'antd';
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import { Login } from '@web/pages/login';
+import { RequireAuth } from '@web/pages/auth';
+import { IframeLayout } from '@web/pages/layout';
 
 const App = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <RequireAuth>
+          <IframeLayout />
+        </RequireAuth>
+      }
+    />
+
+    <Route path="/login" element={<Login />} />
+  </Routes>
 );
 
 export default App;
