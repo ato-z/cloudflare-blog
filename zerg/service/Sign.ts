@@ -117,7 +117,7 @@ export class ServiceSign extends WranglerEnv {
     const sign = headers.get('sign');
     const signData = await this.checkSign(sign);
 
-    const token = sha1(`${signData.master.name}${hash}`);
+    const token = sha1(`${signData.master.name}${hash}${Date.now()}`);
     const master = await this.modelMaster.find(signData.master.id);
     await this.tmpKv.put(
       `token:${token}`,
