@@ -3,9 +3,9 @@
   "main": "index.ts",
   "compatibilityDate": "2023-05-01",
   "routes": [
-    { "pattern": "atoz.ltd", "customDomain": true },
+    { "pattern": "api.atoz.ltd", "customDomain": true },
     {
-      "pattern": "atoz.ltd/static/*",
+      "pattern": "api.atoz.ltd/static/*",
       "zoneId": "b892eb8864058dab1d6dcf29348de276"
     }
   ]
