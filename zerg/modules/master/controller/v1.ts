@@ -50,9 +50,9 @@ export class ControllerMasterV1 {
   }
 
   /**
-   * @api {post} /master/v1/login   管理员登录获取凭证
+   * @api {get} /master/v1/data   管理员信息
    * @apiVersion 1.0.0
-   * @apiName masterLogin
+   * @apiName masterData
    * @apiGroup master
    *
    * @apiHeader {String}   Content-Type application/json
