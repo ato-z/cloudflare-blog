@@ -1,4 +1,4 @@
-import { Typography, theme } from 'antd';
+import { Typography } from 'antd';
 import './day-time.scss';
 import am1 from '@web/assets/icon-times/am1.svg';
 import am2 from '@web/assets/icon-times/am2.svg';
