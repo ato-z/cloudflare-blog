@@ -1,11 +1,11 @@
-import { Layout, Avatar, Space } from 'antd';
+import { Layout, Avatar, Space, Typography, Button } from 'antd';
 
 export const Header = ({ backgroundColor }: { backgroundColor: string }) => {
   return (
     <Layout.Header style={{ backgroundColor }}>
       <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
         <Avatar size={40}>U</Avatar>
-        <small>超级管理员</small>
+        <Button type="link">超级管理员</Button>
       </Space>
     </Layout.Header>
   );
