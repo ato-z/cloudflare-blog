@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { RequireAuth } from '@web/pages/auth';
-import { IframeLayout } from '@web/pages/layout';
+import { IframeLayout } from '../layout';
 import Loading from '../loading';
 
 const Home = lazy(() =>
