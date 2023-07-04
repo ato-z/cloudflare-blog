@@ -13,8 +13,10 @@ export const themeAtom = atom(
     return timeTheme;
   },
   (get, set, newVal: Theme) => {
-    set(readAtom, newVal);
-    window.sessionStorage.setItem('theme', newVal);
+    if (get(readAtom) !== newVal) {
+      set(readAtom, newVal);
+      window.sessionStorage.setItem('theme', newVal);
+    }
   },
 );
 
