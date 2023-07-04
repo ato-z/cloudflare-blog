@@ -1,6 +1,6 @@
+import './index.scss';
 import { useNavigate } from 'react-router-dom';
 import { message, notification } from 'antd';
-import './index.scss';
 import { LoginForm, LoginEvent } from './component/login-form';
 import { upDocumentTitle } from '@web/helper';
 import { loginPost } from '@web/api';
@@ -51,3 +51,5 @@ export const Login = () => {
     </main>
   );
 };
+
+export default Login;
