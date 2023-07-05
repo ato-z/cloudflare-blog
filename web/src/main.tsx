@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-
+import Loading from './components/loading/index.tsx';
 import 'antd/dist/reset.css';
 import './index.css';
 
-import('./App.tsx').then(({ default: App }) => {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
+const App = lazy(() => import('./App.tsx'));
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <Loading>
       <App />
-    </React.StrictMode>,
-  );
-});
+    </Loading>
+  </React.StrictMode>,
+);
