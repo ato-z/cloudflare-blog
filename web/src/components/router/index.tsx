@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { IframeLayout } from '../layout';
 import { routeChildren, LoginElement, NotFoundElement } from './withItems';
 
-export const appRouter = createBrowserRouter([
+const appRouter = createBrowserRouter([
   // 框架路由
   {
     path: '/',
@@ -25,3 +25,5 @@ export const appRouter = createBrowserRouter([
     element: NotFoundElement,
   },
 ]);
+
+export default appRouter;
