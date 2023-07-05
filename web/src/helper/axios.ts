@@ -3,7 +3,7 @@ import { siteConfig } from '@web/config';
 
 /** axios实例 */
 export const axiosInstance = axios.create({
-  baseURL: 'http://www.baidu.com', //siteConfig.domain,
+  baseURL: siteConfig.domain,
   headers: {},
 });
 
