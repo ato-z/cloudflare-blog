@@ -13,5 +13,17 @@ export const loginPost = (data: { user: string; password: string }) => {
  */
 export const masterDataGet = () => {
   const url = '/master/v1/data';
-  return request({ url });
+  return request<Master>({ url });
+};
+
+/**
+ * 编辑管理员信息
+ */
+export const masterEdit = (data: {
+  nickname?: string;
+  intro?: string;
+  cover?: number;
+}) => {
+  const url = '/master/v1/edit';
+  return request<null>({ url, method: 'PATCH', data });
 };
