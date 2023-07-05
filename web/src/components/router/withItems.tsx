@@ -1,11 +1,23 @@
-import { Route } from 'react-router-dom';
 import { routes } from '@web/router';
 import { ErrorElement } from './errorElement';
 import Loading from '../loading';
 import { lazy } from 'react';
 
+// 登录路由
 const AsyncLogin = lazy(() => import('@web/pages/login'));
+export const LoginElement = (
+  <Loading>
+    <AsyncLogin />
+  </Loading>
+);
+
+// 404路由
 const AsyncNoufound = lazy(() => import('@web/pages/miss'));
+export const NotFoundElement = (
+  <Loading>
+    <AsyncNoufound />
+  </Loading>
+);
 
 /** 一维路由 */
 const flatRoutes: RouteItem[] = [];
@@ -28,39 +40,12 @@ const pushInFlatRoutes = (
 pushInFlatRoutes(routes, flatRoutes);
 
 /** 异步的动态路由列表 */
-export const routeItems = flatRoutes.map(item => (
-  <Route
-    key={item.path}
-    path={item.path}
-    lazy={item.lazy}
-    handle={item.handle}
-    loader={item.loader}
-    action={item.action}
-    errorElement={item.errorElement ?? <ErrorElement />}
-    element={<Loading>{item.element}</Loading>}
-  />
-));
-
-// 登录路由
-export const LoginRoute = (
-  <Route
-    path="/login"
-    element={
-      <Loading>
-        <AsyncLogin />
-      </Loading>
-    }
-  />
-);
-
-// 404路由
-export const NotFoundRoute = (
-  <Route
-    path=":miss"
-    element={
-      <Loading>
-        <AsyncNoufound />
-      </Loading>
-    }
-  />
-);
+export const routeChildren = flatRoutes.map(item => ({
+  path: item.path,
+  lazy: item.lazy,
+  handle: item.handle,
+  loader: item.loader,
+  action: item.action,
+  errorElement: item.errorElement ?? <ErrorElement />,
+  element: <Loading>{item.element}</Loading>,
+}));

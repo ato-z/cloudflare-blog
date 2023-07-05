@@ -1,29 +1,27 @@
-import { Routes, Route } from 'react-router-dom';
 import { RequireAuth } from '@web/pages/auth';
+import { createBrowserRouter } from 'react-router-dom';
 import { IframeLayout } from '../layout';
-import { routeItems, LoginRoute, NotFoundRoute } from './withItems';
+import { routeChildren, LoginElement, NotFoundElement } from './withItems';
 
-export const AppRouter = () => (
-  <Routes>
-    {/* 主体框架 */}
-    <Route
-      path="/"
-      element={
-        <RequireAuth>
-          <IframeLayout />
-        </RequireAuth>
-      }
-    >
-      {routeItems}
-    </Route>
-
-    {/* 登录页面 */}
-    {LoginRoute}
-
-    {/* 404 */}
-    {NotFoundRoute}
-    <Route />
-  </Routes>
-);
-
-export default AppRouter;
+export const appRouter = createBrowserRouter([
+  // 框架路由
+  {
+    path: '/',
+    element: (
+      <RequireAuth>
+        <IframeLayout />
+      </RequireAuth>
+    ),
+    children: routeChildren,
+  },
+  // 登录路由
+  {
+    path: '/login',
+    element: LoginElement,
+  },
+  // 404路由
+  {
+    path: ':miss',
+    element: NotFoundElement,
+  },
+]);

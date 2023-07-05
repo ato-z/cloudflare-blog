@@ -1,8 +1,7 @@
 import { ConfigProvider, theme } from 'antd';
 import { useTheme } from './store/theme';
-import { lazy } from 'react';
-
-const AppRouter = lazy(() => import('./components/router'));
+import { appRouter } from '@web/components/router';
+import { RouterProvider } from 'react-router-dom';
 
 const App = () => {
   const [themeJotai] = useTheme();
@@ -10,7 +9,7 @@ const App = () => {
     themeJotai === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm;
   return (
     <ConfigProvider theme={{ algorithm }}>
-      <AppRouter />
+      <RouterProvider router={appRouter} />
     </ConfigProvider>
   );
 };
