@@ -37,11 +37,6 @@ sudo npx wrangler log
     "api": {
       "target": "<example.com|你的域名>",
       "zoneId": "<区域id>"
-    },
-    /** 界面地址，所配置域名区域id */
-    "web": {
-      "target": "<example.com|你的域名>",
-      "zoneId": "<区域id>"
     }
   }
 }

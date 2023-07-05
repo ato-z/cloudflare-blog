@@ -4,12 +4,12 @@ main="index.ts"
 name="blog-exception"
 
 [[routes]]
-pattern="atoz.ltd"
+pattern="api.atoz.ltd"
 custom_domain=true
 
 [[routes]]
 zone_id="b892eb8864058dab1d6dcf29348de276"
-pattern="atoz.ltd/exception/*"
+pattern="api.atoz.ltd/exception/*"
 
 [[d1_databases]]
 database_id="71841805-96d5-4fe6-9d6a-ea1f73c231b6"

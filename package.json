@@ -10,6 +10,9 @@
     "workers:init": "node scripts/workers/init.js",
     "workers:algin": "node scripts/workers/algin.js",
     "workers:install": "node scripts/workers/install.js",
+    "pages:deploy": "node scripts/pages/deploy.js",
+    "pages:dev": "node scripts/pages/dev.js",
+    "pages:init": "node scripts/pages/init.js",
     "build:apidoc": "apidoc -i zerg/modules -o apidoc"
   },
   "keywords": [],

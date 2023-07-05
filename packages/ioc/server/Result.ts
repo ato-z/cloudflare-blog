@@ -14,6 +14,9 @@ export class Result {
       status: code,
       headers: {
         'content-type': `${bodyType}; charset=${charset}`,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': 'PUT, POST, GET, DELETE, OPTIONS, HEAD',
         ...headers,
       },
     });

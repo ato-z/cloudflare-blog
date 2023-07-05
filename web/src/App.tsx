@@ -1,10 +1,17 @@
-import { Button } from 'antd';
-import './App.css'
+import { ConfigProvider, theme } from 'antd';
+import { useTheme } from './store/theme';
+import { appRouter } from '@web/components/router';
+import { RouterProvider } from 'react-router-dom';
 
-const App = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-);
+const App = () => {
+  const [themeJotai] = useTheme();
+  const algorithm =
+    themeJotai === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm;
+  return (
+    <ConfigProvider theme={{ algorithm }}>
+      <RouterProvider router={appRouter} />
+    </ConfigProvider>
+  );
+};
 
 export default App;
