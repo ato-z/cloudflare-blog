@@ -3,7 +3,7 @@ import { siteConfig } from '@web/config';
 
 /** axios实例 */
 export const axiosInstance = axios.create({
-  baseURL: siteConfig.domain,
+  baseURL: 'http://www.baidu.com', //siteConfig.domain,
   headers: {},
 });
 
@@ -41,7 +41,12 @@ axiosInstance.interceptors.request.use(async config => {
 axiosInstance.interceptors.response.use(
   res => res.data,
   async err => {
-    const { response } = err;
+    if (!err.response) return Promise.reject(err);
+
+    console.log(err);
+    const { response, code } = err;
+    const { url, method } = err.config;
+    const { status } = response;
     if (response?.data) {
       const data: { errorCode: number } = response.data;
 
@@ -60,7 +65,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(response.config);
       }
 
-      return Promise.reject(data);
+      return Promise.reject({ ...data, method, status, code, url });
     }
 
     return Promise.reject(err);
