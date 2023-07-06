@@ -21,7 +21,11 @@ export const imageUplaod = async (file: File, maxM: number = 2) => {
 
   /** 创建image元素并处理 */
   const img = new Image();
+  img.crossOrigin = 'Anonymous';
   img.src = await getBase64(file);
+
+  await new Promise(resolve => (img.onload = resolve));
+
   const data = await getImageData(img);
 
   /** 转formData上传 */
