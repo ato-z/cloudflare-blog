@@ -5,7 +5,6 @@ import am2 from '@web/assets/icon-times/am2.svg';
 import pm1 from '@web/assets/icon-times/pm1.svg';
 import pm2 from '@web/assets/icon-times/pm2.svg';
 import { fillZero } from '@web/helper';
-import { useTheme } from '@web/store/theme';
 import { useCallback, useEffect, useState } from 'react';
 
 const days = [am1, am2, pm1, pm2];
