@@ -1,4 +1,4 @@
-import { zerg } from '@web/../../../.domain.json';
+import { zerg } from '@root/.domain.json';
 export const siteConfig = {
   domain: `https://${zerg.api.target}`,
   /** 测试环境 */
