@@ -1,0 +1,12 @@
+{
+  "name": "blog-dev",
+  "main": "index.ts",
+  "compatibilityDate": "2023-05-01",
+  "routes": [
+    { "pattern": "api.atoz.ltd", "customDomain": true },
+    {
+      "pattern": "api.atoz.ltd/dev/*",
+      "zoneId": "b892eb8864058dab1d6dcf29348de276"
+    }
+  ]
+}
