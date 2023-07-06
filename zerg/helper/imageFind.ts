@@ -2,7 +2,7 @@ import { ModelImage, type Image } from '@zerg/model/Image';
 const modelIamge = new ModelImage();
 
 class ImageFind {
-  protected waitResult = new Map<number, (img: Image) => void>();
+  protected waitResult = new Map<number, (img: Image | null) => void>();
   protected inquireTime: NodeJS.Timeout;
 
   getById(id: unknown) {
@@ -41,6 +41,13 @@ class ImageFind {
           resolve(img);
         }
       });
+
+      if (list.length === 0) {
+        const resolves = waitResult.values();
+        for (const resolve of resolves) {
+          resolve(null);
+        }
+      }
     }, 3);
   }
 }
