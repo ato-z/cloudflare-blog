@@ -34,19 +34,12 @@ class ImageFind {
       const codeList = await modelIamge.select({
         where: { and: { id: ['IN', ids] } },
       });
-      const list = codeList.list;
-      list.forEach(img => {
-        const resolve = waitResult.get(img.id);
-        if (resolve !== undefined) {
-          resolve(img);
-        }
-      });
 
-      if (list.length === 0) {
-        const resolves = waitResult.values();
-        for (const resolve of resolves) {
-          resolve(null);
-        }
+      const entries = waitResult.entries();
+      const list = codeList.list;
+      for (const [imgId, resolve] of entries) {
+        const img = list.find(img => img.id === imgId) ?? null;
+        resolve(img);
       }
     }, 3);
   }
