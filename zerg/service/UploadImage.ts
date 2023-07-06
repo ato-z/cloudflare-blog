@@ -80,7 +80,7 @@ export class ServiceUploadImage extends WranglerEnv {
     const { R2Static } = this.env;
     await R2Static.put(hash, img);
     if (thumb) {
-      await R2Static.put(`${hash}-thumb`, thumb);
+      await R2Static.put(`${hash}/thumb`, thumb);
     }
 
     return img;
@@ -89,7 +89,7 @@ export class ServiceUploadImage extends WranglerEnv {
   /** 保存到d1数据库 */
   private saveToD1(hash: string, img: ArrayBuffer, post: ImgBase64Dto) {
     const from = IMAGE_FROM.R2;
-    const createDate = date('y-m-d h:i:s');
+    const createDate = date('y/m/d h:i:s');
     const { modelImage } = this;
     const row = {
       size: img.byteLength,
@@ -103,7 +103,7 @@ export class ServiceUploadImage extends WranglerEnv {
     };
 
     if (post.thumb) {
-      Reflect.set(row, 'thumb', `${hash}-thumb`);
+      Reflect.set(row, 'thumb', `${hash}/thumb`);
     }
 
     return modelImage.insert(row);
