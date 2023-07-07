@@ -6,4 +6,7 @@ export const siteConfig = {
 
   /** 静态资源地址 */
   staticDomain: web.static,
+
+  /** 默认分页 */
+  pageSize: 15,
 };
