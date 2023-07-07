@@ -30,6 +30,10 @@ export class ArticleAddDto extends BaseDto {
   @IsLoose
   cover: number;
 
+  @IsInt()
+  @IsLoose
+  status?: number;
+
   @IsDate()
   @IsLoose
   pubDate?: string;

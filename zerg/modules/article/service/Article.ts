@@ -11,6 +11,7 @@ import { ExceptionParam } from '@zerg/exception';
 import { ServicePage } from '@zerg/service/Page';
 import { ArticlePageDto } from '../dto/ArticlePage';
 import { ArticleObservePageDto } from '../dto/ArticleObservePage';
+import { ARTICLE_STATUS } from '@zerg/enum';
 
 export class ServiceArticle {
   protected modelArticle = new ModelArticle();
@@ -92,6 +93,7 @@ export class ServiceArticle {
       updateDate: createDate,
       createDate,
       tags,
+      status: ARTICLE_STATUS.DRAFT,
     };
 
     const result = await this.modelArticle.insert(row);
