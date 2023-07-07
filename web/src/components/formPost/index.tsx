@@ -38,7 +38,7 @@ const FormPost = (ctx: {
       autoComplete="off"
     >
       {ctx.items.map(item => (
-        <Form.Item key={item.name} name={item.name} label={item.label}>
+        <Form.Item key={item.name} {...item}>
           {item.element}
         </Form.Item>
       ))}
