@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `az_article` (
     `tags` TEXT,
     `intro` TEXT,
     `content` TEXT,
+    `status` INTEGER,
     `createDate` TEXT,
     `updateDate` TEXT,
     `pubDate` TEXT,
