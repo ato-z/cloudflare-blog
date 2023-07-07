@@ -29,25 +29,26 @@ export class ServiceMaster {
    * 重置密码
    */
   async rePass(post: MasterRePasswordDto, master: Master) {
+    const newMaster = (await this.modelMaster.find(master.id))!;
     if (post.password !== post.rePassword) {
       throw new ExceptionParam('两次密码不一致');
     }
 
     const codePassword = ServiceSign.codePassword(
-      master.name,
+      newMaster.name,
       post.oldPassword,
     );
-    if (codePassword !== master.password) {
+    if (codePassword !== newMaster.password) {
       throw new ExceptionParam('旧密码不正确');
     }
 
     const { modelMaster } = this;
-    const newPassword = ServiceSign.codePassword(master.name, post.password);
+    const newPassword = ServiceSign.codePassword(newMaster.name, post.password);
     await modelMaster.update(
       {
         password: newPassword,
       },
-      { where: { and: { id: master.id } } },
+      { where: { and: { id: newMaster.id } } },
     );
   }
 }
