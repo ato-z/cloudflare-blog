@@ -41,7 +41,7 @@ type PicItem = {
 
 type Master = {
   id: number;
-  cover: PicItem | unknown;
+  cover: PicItem | null;
   nickname: string;
   name: string;
   intro: string;

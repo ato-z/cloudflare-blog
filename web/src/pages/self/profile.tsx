@@ -1,12 +1,15 @@
 import { masterEdit } from '@web/api';
 import FormPost from '@web/components/formPost';
 import { useMaster } from '@web/store/master';
-import { Col, Divider, Row, Form, Input, Upload, Button } from 'antd';
+import { Col, Divider, Row, Form, Input, Button } from 'antd';
 import { useLoaderData } from 'react-router-dom';
+import UploadCover from './component/uploadCover';
+import { useState } from 'react';
 
 const SelfProfile = () => {
   const master = useLoaderData() as Master;
   const [, setMaster] = useMaster();
+  const [cover, setCoverId] = useState<number>(0);
 
   /** 提交更新个人信息 */
   const onSubmit = async (post: {
@@ -15,7 +18,7 @@ const SelfProfile = () => {
     name: string;
     nickname: string;
   }) => {
-    await masterEdit(post);
+    await masterEdit({ ...post, cover });
     setMaster(post);
   };
 
@@ -46,12 +49,10 @@ const SelfProfile = () => {
           </FormPost>
         </Col>
         <Col className="gutter-row" span={6}>
-          <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            listType="picture-circle"
-          >
-            Edit
-          </Upload>
+          <UploadCover
+            cover={master.cover ? master.cover.path : undefined}
+            onSuccess={({ id }) => setCoverId(id)}
+          />
         </Col>
       </Row>
     </article>
