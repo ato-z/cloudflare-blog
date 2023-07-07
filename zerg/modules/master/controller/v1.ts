@@ -100,7 +100,7 @@ export class ControllerMasterV1 {
   /**
    * @api {PATCH} /master/v1/repass   修改密码
    * @apiVersion 1.0.0
-   * @apiName masterEdit
+   * @apiName masterRePass
    * @apiGroup master
    *
    * @apiHeader {String}   Content-Type application/json
