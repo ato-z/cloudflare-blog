@@ -1,6 +1,7 @@
 import { masterRePass } from '@web/api';
 import FormPost from '@web/components/formPost';
-import { Divider, Form, Input, Button } from 'antd';
+import { Divider, Form, Button } from 'antd';
+import { repassProps } from './vars';
 const RePass = () => {
   /** 提交更新个人信息 */
   const onSubmit = async (post: {
@@ -16,29 +17,7 @@ const RePass = () => {
     <article>
       <Divider orientation="left">修改密码</Divider>
       <section style={{ maxWidth: '700px' }}>
-        <FormPost
-          items={[
-            {
-              name: 'oldPassword',
-              label: '密码',
-              element: <Input type="password" />,
-              rules: [{ required: true }],
-            },
-            {
-              name: 'password',
-              label: '新密码',
-              element: <Input type="password" />,
-              rules: [{ required: true }],
-            },
-            {
-              name: 'rePassword',
-              label: '确认密码',
-              element: <Input type="password" />,
-              rules: [{ required: true }],
-            },
-          ]}
-          onSubmit={onSubmit}
-        >
+        <FormPost items={repassProps} onSubmit={onSubmit}>
           <Form.Item>
             <Button htmlType="submit" type="primary">
               提交

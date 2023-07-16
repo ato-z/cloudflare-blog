@@ -1,10 +1,11 @@
 import { masterEdit } from '@web/api';
 import FormPost from '@web/components/formPost';
 import { useMaster } from '@web/store/master';
-import { Col, Divider, Row, Form, Input, Button } from 'antd';
+import { Col, Divider, Row, Form, Button } from 'antd';
 import { useLoaderData } from 'react-router-dom';
 import UploadCover from './component/uploadCover';
 import { useState } from 'react';
+import { profileProps } from './vars';
 
 const SelfProfile = () => {
   const master = useLoaderData() as Master;
@@ -28,16 +29,7 @@ const SelfProfile = () => {
       <Row gutter={16}>
         <Col className="gutter-row" span={16} offset={2}>
           <FormPost
-            items={[
-              { name: 'name', label: '登录名', element: <Input readOnly /> },
-              { name: 'nickname', label: '昵称', element: <Input /> },
-              { name: 'intro', label: '简介', element: <Input.TextArea /> },
-              {
-                name: 'createDate',
-                label: '注册时间',
-                element: <Input readOnly />,
-              },
-            ]}
+            items={profileProps}
             initialValues={master}
             onSubmit={onSubmit}
           >
