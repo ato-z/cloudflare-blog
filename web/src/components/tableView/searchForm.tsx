@@ -8,7 +8,12 @@ export const useSearchForm = ({ items }: { items: FormItem[] }) => {
 
   const onFinish = useCallback(
     (fromData: Record<string, number | string | undefined | null>) => {
-      const entries = Object.entries(fromData).filter(([, val]) => val);
+      const entries = Object.entries(fromData).filter(([, val]) => {
+        if (val === undefined) return false;
+        if (val === -1) return false;
+        if (val === null) return false;
+        return true;
+      });
       const data = Object.fromEntries(entries);
       setPost(data);
     },
