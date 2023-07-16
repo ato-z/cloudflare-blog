@@ -19,6 +19,7 @@ specifiers:
   react-router-dom: ^6.14.1
   sass: ^1.63.6
   typescript: ^5.0.2
+  vditor: ^3.9.4
   vite: ^4.3.9
 
 dependencies:
@@ -31,6 +32,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.14.1_biqbaboplfbrettd7655fr4n2y
   sass: 1.63.6
+  vditor: 3.9.4
 
 devDependencies:
   '@types/react': 18.2.14
@@ -1053,6 +1055,10 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  /diff-match-patch/1.0.5:
+    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
     dev: false
 
   /dir-glob/3.0.1:
@@ -2433,6 +2439,12 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /vditor/3.9.4:
+    resolution: {integrity: sha512-w7k7Xmdgs5LUTnXWoWyqCqlX+XC+yhJi2kRHzalho47rztp8m2Bi7wMBELjjjUTcoCHbQAatug0Awb/rNYfCwQ==}
+    dependencies:
+      diff-match-patch: 1.0.5
+    dev: false
 
   /vite/4.3.9_sass@1.63.6:
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
