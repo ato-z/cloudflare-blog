@@ -1,60 +1,61 @@
 import { AnimaView } from '@web/components/animaRouter';
 import { useSearchForm } from '@web/components/tableView/searchForm';
-import { Button, Input, List } from 'antd';
-import ArticleStatus from './component/status';
+import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
 import { siteConfig } from '@web/config';
+import { useNavigate } from 'react-router-dom';
+import useDatalist from '@web/helper/useDatalist';
+import { articleList } from '@web/api';
 import ArticleItem from './component/item';
+import { articleSearchProps } from './vars';
 
 const { pageSize } = siteConfig;
 
-const searchItems = [
-  { name: 'title', label: '标题', element: <Input /> },
-  { name: 'tags', label: '标签', element: <Input /> },
-  { name: 'status', label: '状态', element: <ArticleStatus /> },
-];
-
-// 测试数据
-const data = Array.from({ length: 23 }).map((_, i) => ({
-  title: `ant design part ${i}`,
-  subTitle: `part ${i}`,
-  tags: ',标签1,标签2,标签3,',
-  intro:
-    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-}));
-
 export const ArticleList = () => {
-  const [SearchForm, searchData] = useSearchForm({ items: searchItems });
+  const navigate = useNavigate();
+  const [SearchForm, searchData] = useSearchForm({ items: articleSearchProps });
   const [currentPage, setPage] = useState(0);
-  const [total, setTotal] = useState(100);
+  const [total, setTotal] = useState(0);
 
+  // 笔记列表
+  const [setParams, _total, view] = useDatalist(articleList, data => (
+    <List
+      itemLayout="vertical"
+      size="large"
+      pagination={{
+        total,
+        pageSize,
+        defaultCurrent: currentPage,
+        onChange: page => setPage(page),
+      }}
+      dataSource={data}
+      renderItem={item => <ArticleItem detail={item} />}
+    />
+  ));
+
+  // 用户检索状态
   useEffect(() => {
-    console.log('搜索表单', searchData);
-    console.log('分页参数', currentPage);
-  }, [searchData, currentPage]);
+    const end = Math.max(currentPage * pageSize, pageSize);
+    const start = end - pageSize;
+    setParams({ start, end, ...searchData });
+  }, [searchData, currentPage, setParams]);
+
+  // 统计页码
+  useEffect(() => {
+    setTotal(_total);
+  }, [_total, setTotal]);
 
   return (
     <AnimaView>
       <article>
         <section>{SearchForm}</section>
         <section style={{ margin: '20px 0 ' }}>
-          <Button type={'primary'}>添加笔记</Button>
+          <Button onClick={() => navigate('push')} type={'primary'}>
+            添加笔记
+          </Button>
         </section>
 
-        <section>
-          <List
-            itemLayout="vertical"
-            size="large"
-            pagination={{
-              total,
-              pageSize,
-              defaultCurrent: currentPage,
-              onChange: page => setPage(page),
-            }}
-            dataSource={data}
-            renderItem={item => <ArticleItem detail={item} />}
-          />
-        </section>
+        <section>{view}</section>
       </article>
     </AnimaView>
   );
