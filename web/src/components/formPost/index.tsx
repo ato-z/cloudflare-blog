@@ -11,14 +11,15 @@ const FormPost = (ctx: {
 
   onSubmit: (post: any) => LikePromise<string | void>;
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
-    message.loading('正在提交');
+    messageApi.loading('正在提交');
     try {
       const msg = (await ctx.onSubmit(values)) ?? '操作成功';
-      message.destroy();
-      message.success(msg);
+      messageApi.destroy();
+      messageApi.success(msg);
     } catch (err: unknown) {
       tailErr(err);
     }
@@ -29,22 +30,25 @@ const FormPost = (ctx: {
   };
 
   return (
-    <Form
-      form={form}
-      initialValues={ctx.initialValues}
-      layout={ctx.layout ?? 'vertical'}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      {ctx.items.map(item => (
-        <Form.Item key={item.name} {...item}>
-          {item.element}
-        </Form.Item>
-      ))}
+    <>
+      {contextHolder}
+      <Form
+        form={form}
+        initialValues={ctx.initialValues}
+        layout={ctx.layout ?? 'vertical'}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        {ctx.items.map(item => (
+          <Form.Item key={item.name} {...item}>
+            {item.element}
+          </Form.Item>
+        ))}
 
-      {ctx.children}
-    </Form>
+        {ctx.children}
+      </Form>
+    </>
   );
 };
 
