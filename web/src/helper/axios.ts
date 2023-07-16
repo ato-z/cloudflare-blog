@@ -43,7 +43,6 @@ axiosInstance.interceptors.response.use(
   async err => {
     if (!err.response) return Promise.reject(err);
 
-    console.log(err);
     const { response, code } = err;
     const { url, method } = err.config;
     const { status } = response;
@@ -51,9 +50,10 @@ axiosInstance.interceptors.response.use(
       const data: { errorCode: number } = response.data;
 
       // sign失效， 重登
-      if (data.errorCode === 3000) {
+      if (data.errorCode === 3000 || data.errorCode === 3001) {
         const { location } = window;
         window.localStorage.removeItem('sign');
+        window.localStorage.removeItem('token');
         if (location.pathname !== '/login') {
           location.reload();
         }
