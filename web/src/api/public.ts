@@ -1,5 +1,7 @@
+import { isResponseError } from '@web/helper/assert';
 import { request } from '@web/helper/axios';
 import { getBase64, getImageData } from '@web/helper/codeImageFile';
+import { useEffect, useState } from 'react';
 
 /**
  * 上传图片
@@ -44,4 +46,41 @@ export const imageUplaod = async (file: File, maxM: number = 2) => {
     method: 'post',
     data: formData,
   });
+};
+
+/**
+ * 请求列表
+ */
+export const useListRequest = <R>(
+  requestList: (parmas: Record<string, string | number>) => Promise<any>,
+) => {
+  const [error, setError] = useState('');
+  const [result, setResult] = useState<{ total: number; list: R[] }>({
+    total: 0,
+    list: [],
+  });
+  const [loading, setLoading] = useState(false);
+  const [params, setParams] = useState<Record<string, string | number>>({});
+
+  useEffect(() => {
+    setLoading(true);
+
+    requestList(params)
+      .then(setResult)
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else if (isResponseError(err)) {
+          setError(err.message);
+        }
+      })
+      .finally(() => setLoading(false));
+  }, [params, setLoading]);
+
+  return {
+    loading,
+    setParams,
+    result,
+    error,
+  };
 };
