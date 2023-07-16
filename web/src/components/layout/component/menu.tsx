@@ -8,7 +8,7 @@ import { filterMenuItms } from '@web/helper';
 const { Sider } = Layout;
 
 const items = filterMenuItms(routes);
-
+console.log(items);
 /**
  * 左侧菜单
  */
