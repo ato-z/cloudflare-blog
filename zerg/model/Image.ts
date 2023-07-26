@@ -1,5 +1,8 @@
+import { siteConfig } from '@web/config';
 import { IMAGE_FROM } from '@zerg/enum';
 import { ModelBase } from './Base';
+
+const { staticDomain } = siteConfig;
 
 export type Image = {
   id: number;
@@ -18,5 +21,18 @@ export class ModelImage extends ModelBase<Image> {
   name = 'image';
   hideing = [];
   appending = {};
-  getting = {};
+  getting = {
+    path(value, key: string, data: Image) {
+      if (data.from === IMAGE_FROM.R2) {
+        return `${staticDomain}${value}`.replace(/\/+/g, '/');
+      }
+      return value;
+    },
+    thumb(value, key: string, data: Image) {
+      if (data.from === IMAGE_FROM.R2) {
+        return `${staticDomain}${value}`.replace(/\/+/g, '/');
+      }
+      return value;
+    },
+  };
 }

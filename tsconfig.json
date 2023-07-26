@@ -16,7 +16,9 @@
 
     /** 路径别名 */
     "paths": {
-      "@zerg/*": ["./zerg/*"]
+      "@zerg/*": ["./zerg/*"],
+      "@web/*": ["./web/src/*"],
+      "@root/*": ["./*"]
     },
 
     "isolatedModules": true,
