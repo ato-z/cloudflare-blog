@@ -35,6 +35,7 @@ export class ServiceArticle {
       'title',
       'subTitle',
       'tags',
+      'cover',
       'intro',
       'pubDate',
       'createDate',
