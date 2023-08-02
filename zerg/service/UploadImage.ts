@@ -1,7 +1,6 @@
 import sha from 'sha1';
 import { date } from '@ato-z/helper';
 import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
-import { siteConfig } from '@web/config';
 import { ExceptionParam } from '@zerg/exception';
 import { appConfig } from '@zerg/config/app';
 import { IMAGE_FROM } from '@zerg/enum';
@@ -10,9 +9,9 @@ import { ImgBase64Dto } from '@zerg/modules/upload/dto/ImgBase64';
 import { PageParamDto } from '@zerg/dto';
 import { ServiceFile } from './File';
 import { ServicePage } from './Page';
+import { codeOssPath } from '@zerg/helper';
 
 const { maxImgFile } = appConfig;
-const { staticDomain } = siteConfig;
 
 export class ServiceUploadImage extends WranglerEnv {
   protected modelImage = new ModelImage();
@@ -31,7 +30,7 @@ export class ServiceUploadImage extends WranglerEnv {
     // 查看文件是否已上传过
     const data = await this.hashInD1(hash);
     if (data !== null) {
-      return { id: data.id, path: `${staticDomain}/${hash}` };
+      return { id: data.id, path: codeOssPath(hash) };
     }
 
     // 保存到r2对象存储
@@ -41,7 +40,7 @@ export class ServiceUploadImage extends WranglerEnv {
     const result = await this.saveToD1(hash, uint8, post);
     return {
       id: result.meta.last_row_id,
-      path: `${staticDomain}/${hash}`,
+      path: codeOssPath(hash),
     };
   }
 
