@@ -9,4 +9,9 @@ export const siteConfig = {
 
   /** 默认分页 */
   pageSize: 15,
+
+  /** 上传文件大小设置 */
+  uploadSize: {
+    pic: 2,
+  },
 };
