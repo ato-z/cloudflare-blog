@@ -183,13 +183,13 @@ export class ControllerArticleV1 {
   /**
    * @api {PATCH} /article/v1/remove   删除文章
    * @apiVersion 1.0.0
-   * @apiName articleEdit
+   * @apiName articleRemove
    * @apiGroup article
    *
    * @apiHeader {String}   Content-Type application/json
    * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
    *
-   * @apiBody {string}    ids        文章id1,文章id2,文章id3
+   * @apiBody {string}    id        文章id1,文章id2,文章id3
    *
    * @apiSuccessExample {json} 成功响应:
    * {

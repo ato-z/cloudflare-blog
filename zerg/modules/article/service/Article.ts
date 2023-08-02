@@ -38,6 +38,7 @@ export class ServiceArticle {
       'cover',
       'intro',
       'pubDate',
+      'status',
       'createDate',
     ]);
   }
