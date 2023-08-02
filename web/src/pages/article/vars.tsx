@@ -1,5 +1,7 @@
-import { Input, Select } from 'antd';
+import { Input, Select, DatePicker } from 'antd';
 import ArticleStatus from './component/status';
+import UploadImage from '@web/components/uploadImage';
+import dayjs from 'dayjs';
 
 /**
  * 笔记列表检索项
@@ -13,7 +15,27 @@ export const articleSearchProps = [
 /**
  * 编辑或添加笔记
  */
-export const articleProps: FormItem[] = [
+type ArticleProp = {
+  uploadSuccess: (key: string, result: any) => void;
+  cover: string;
+  pubDate?: string;
+};
+export const articleProps: (op: ArticleProp) => FormItem[] = ({
+  uploadSuccess,
+  cover,
+  pubDate,
+}) => [
+  {
+    label: '封面',
+    name: 'cover',
+    element: (
+      <UploadImage
+        cover={cover}
+        onSuccess={result => uploadSuccess('cover', result)}
+      />
+    ),
+    // rules: [{ required: true }],
+  },
   {
     label: '标题',
     name: 'title',
@@ -34,12 +56,6 @@ export const articleProps: FormItem[] = [
     rules: [{ required: true }],
   },
   {
-    label: '封面',
-    name: 'cover',
-    element: <Input />,
-    rules: [{ required: true }],
-  },
-  {
     label: '标签',
     name: 'tags',
     element: <Input.TextArea />,
@@ -48,8 +64,12 @@ export const articleProps: FormItem[] = [
   {
     label: '发布时间',
     name: 'pubDate',
-    element: <Input.TextArea />,
-    rules: [{ required: true }],
+    element: (
+      <DatePicker
+        format="YYYY/MM/DD"
+        defaultValue={pubDate ? dayjs(pubDate, 'YYYY/MM/DD') : undefined}
+      />
+    ),
   },
   {
     label: '状态',
