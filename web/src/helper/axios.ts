@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { siteConfig } from '@web/config';
 
 /** axios实例 */
+export const baseURL = siteConfig.domain;
 export const axiosInstance = axios.create({
   baseURL: siteConfig.domain,
   headers: {},
@@ -9,7 +10,7 @@ export const axiosInstance = axios.create({
 
 let token: string | null = window.localStorage.getItem('token');
 /** 获取token */
-const getToken = async () => {
+export const getToken = async () => {
   if (token !== null) return token;
   return getTokenByZerg();
 };

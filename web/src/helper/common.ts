@@ -40,9 +40,14 @@ export const filterMenuItms = (
       const parent = path.replace(/\/+$/, '');
       const children = item.children
         ? filterMenuItms(item.children, parent)
-        : undefined;
+        : [];
 
-      return touchItem(item.label, path, item.icon, children);
+      return touchItem(
+        item.label,
+        path,
+        item.icon,
+        children.length ? children : undefined,
+      );
     });
 
 /**

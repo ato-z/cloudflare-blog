@@ -1,5 +1,25 @@
 import type { RcFile } from 'antd/es/upload/interface';
 import { fillZero } from '.';
+import { request } from '@web/helper/axios';
+import { siteConfig } from '@web/config';
+
+/**
+ * 检测文件大小是否合法
+ * @param file
+ * @param maxM
+ */
+export const checkImgFile = (file: File, maxM: number = 2) => {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+
+  if (!isJpgOrPng) {
+    throw new TypeError('You can only upload JPG/PNG file!');
+  }
+
+  const isLtKM = file.size / 1024 / 1024 < maxM;
+  if (!isLtKM) {
+    throw new TypeError(`Image must smaller than ${maxM}MB!`);
+  }
+};
 
 /**
  * 获取图像的base64
@@ -73,4 +93,39 @@ export const getImageData = async (
     height: naturalHeight,
     thumb,
   };
+};
+
+/**
+ * 上传图片
+ */
+export const imageUplaod = async (
+  file: File,
+  maxM: number = siteConfig.uploadSize.pic,
+) => {
+  /** 校验文件合法性 */
+  checkImgFile(file, maxM);
+
+  /** 创建image元素并处理 */
+  const img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.src = await getBase64(file);
+  await new Promise(resolve => (img.onload = resolve));
+
+  const data = await getImageData(img);
+
+  /** 转formData上传 */
+  const url = 'upload/v1/img/base64';
+  const formData = new FormData();
+  const keys = Object.keys(data) as Array<keyof typeof data & string>;
+  keys.forEach(key => {
+    if (data[key]) {
+      formData.append(key, <string>data[key]);
+    }
+  });
+  formData.append('img', img.src);
+  return request<{ id: number; path: string }>({
+    url,
+    method: 'post',
+    data: formData,
+  });
 };
