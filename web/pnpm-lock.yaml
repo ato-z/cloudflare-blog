@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-react-swc': ^3.0.0
   antd: ^5.6.3
   axios: ^1.4.0
+  dayjs: ^1.11.9
   eslint: ^8.38.0
   eslint-plugin-react-hooks: ^4.6.0
   eslint-plugin-react-refresh: ^0.3.4
@@ -26,6 +27,7 @@ dependencies:
   '@ant-design/icons': 5.1.4_biqbaboplfbrettd7655fr4n2y
   antd: 5.6.3_biqbaboplfbrettd7655fr4n2y
   axios: 1.4.0
+  dayjs: 1.11.9
   framer-motion: 10.12.18_biqbaboplfbrettd7655fr4n2y
   jotai: 2.2.1_react@18.2.0
   react: 18.2.0
