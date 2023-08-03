@@ -18,8 +18,10 @@ export default (
         <Result status="warning" title="Request error" subTitle={error} />
       )}
       {loading && <Loading></Loading>}
-      {!error && !loading && result.list.length === 0 && <Empty />}
-      {!error && !loading && result.list.length && transition(result.list)}
+      {!error && !loading && result.list.length === 0 && (
+        <Empty style={{ marginTop: '100px' }} />
+      )}
+      {!error && !loading && result.list.length ? transition(result.list) : ''}
     </div>,
   ] as const;
 };

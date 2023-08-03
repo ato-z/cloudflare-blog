@@ -3,7 +3,7 @@ import { useSearchForm } from '@web/components/tableView/searchForm';
 import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
 import { siteConfig } from '@web/config';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useDatalist from '@web/helper/useDatalist';
 import { articleList } from '@web/api';
 import ArticleItem from './component/item';
@@ -12,6 +12,8 @@ import { articleSearchProps } from './vars';
 const { pageSize } = siteConfig;
 
 export const ArticleList = () => {
+  const params = useParams();
+  console.log(params);
   const navigate = useNavigate();
   const [SearchForm, searchData] = useSearchForm({ items: articleSearchProps });
   const [currentPage, setPage] = useState(0);
