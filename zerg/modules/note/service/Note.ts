@@ -27,6 +27,7 @@ export class ServiceNote {
       'id',
       'title',
       'tags',
+      'content',
       'createDate',
       'updateDate',
     ]);
