@@ -1,5 +1,6 @@
 import { IMAGE_FROM } from '@zerg/enum';
 import { ModelBase } from './Base';
+import { codeOssPath } from '@zerg/helper';
 
 export type Image = {
   id: number;
@@ -18,5 +19,18 @@ export class ModelImage extends ModelBase<Image> {
   name = 'image';
   hideing = [];
   appending = {};
-  getting = {};
+  getting = {
+    path(value, key: string, data: Image) {
+      if (data.from === IMAGE_FROM.R2) {
+        return codeOssPath(value);
+      }
+      return value;
+    },
+    thumb(value, key: string, data: Image) {
+      if (data.from === IMAGE_FROM.R2) {
+        return codeOssPath(value);
+      }
+      return value;
+    },
+  };
 }

@@ -16,7 +16,7 @@ export class Result {
         'content-type': `${bodyType}; charset=${charset}`,
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Methods': 'PUT, POST, GET, DELETE, OPTIONS, HEAD',
+        'Access-Control-Allow-Methods': '*',
         ...headers,
       },
     });

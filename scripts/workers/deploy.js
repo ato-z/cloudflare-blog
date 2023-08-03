@@ -14,7 +14,7 @@ const deployModule = moduleName => {
 };
 
 const all = '🐻 ALL';
-const choices = [all, ...moduleList];
+const choices = [all, ...moduleList].filter(item => item !== 'dev');
 
 inquirer
   .prompt(

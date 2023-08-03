@@ -9,6 +9,7 @@ export type Article = {
   tags: string;
   intro?: string;
   content: string;
+  status: number;
   createDate: string;
   updateDate: string;
   pubDate?: string;

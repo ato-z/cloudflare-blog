@@ -2,46 +2,21 @@ import { ModelImage, type Image } from '@zerg/model/Image';
 const modelIamge = new ModelImage();
 
 class ImageFind {
-  protected waitResult = new Map<number, (img: Image) => void>();
-  protected inquireTime: NodeJS.Timeout;
+  static map = new Map<string, Image>();
 
-  getById(id: unknown) {
+  async getById(id: unknown) {
     if (typeof id !== 'string' && typeof id !== 'number') {
       return Promise.resolve(null);
     }
 
-    const { waitResult } = this;
-    const result = new Promise(resolve => {
-      const queryId = typeof id === 'string' ? parseInt(id) : id;
-      waitResult.set(queryId, resolve);
-    });
+    const strID = id.toString();
+    if (!ImageFind.map.has(strID)) {
+      const img = await modelIamge.find(strID);
+      if (img === null) return null;
+      ImageFind.map.set(strID, img);
+    }
 
-    this.inquire();
-
-    return result;
-  }
-
-  private inquire() {
-    const { waitResult } = this;
-    clearTimeout(this.inquireTime);
-    this.inquireTime = setTimeout(async () => {
-      const ids: Array<string | number> = [];
-      const keys = waitResult.keys();
-      for (const key of keys) {
-        ids.push(key);
-      }
-
-      const codeList = await modelIamge.select({
-        where: { and: { id: ['IN', ids] } },
-      });
-      const list = codeList.list;
-      list.forEach(img => {
-        const resolve = waitResult.get(img.id);
-        if (resolve !== undefined) {
-          resolve(img);
-        }
-      });
-    }, 3);
+    return ImageFind.map.get(strID) ?? null;
   }
 }
 

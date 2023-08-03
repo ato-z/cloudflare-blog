@@ -1,3 +1,4 @@
+import sha from 'sha1';
 import { date } from '@ato-z/helper';
 import { WranglerEnv } from '@ato-z/ioc/server/WranglerEnv';
 import { ExceptionParam } from '@zerg/exception';
@@ -5,12 +6,13 @@ import { appConfig } from '@zerg/config/app';
 import { IMAGE_FROM } from '@zerg/enum';
 import { Image, ModelImage } from '@zerg/model/Image';
 import { ImgBase64Dto } from '@zerg/modules/upload/dto/ImgBase64';
-import { ServiceFile } from './File';
-import sha from 'sha1';
 import { PageParamDto } from '@zerg/dto';
+import { ServiceFile } from './File';
 import { ServicePage } from './Page';
+import { codeOssPath } from '@zerg/helper';
 
 const { maxImgFile } = appConfig;
+
 export class ServiceUploadImage extends WranglerEnv {
   protected modelImage = new ModelImage();
 
@@ -28,7 +30,7 @@ export class ServiceUploadImage extends WranglerEnv {
     // 查看文件是否已上传过
     const data = await this.hashInD1(hash);
     if (data !== null) {
-      return { id: data.id, path: hash };
+      return { id: data.id, path: codeOssPath(hash) };
     }
 
     // 保存到r2对象存储
@@ -38,7 +40,7 @@ export class ServiceUploadImage extends WranglerEnv {
     const result = await this.saveToD1(hash, uint8, post);
     return {
       id: result.meta.last_row_id,
-      path: hash,
+      path: codeOssPath(hash),
     };
   }
 
@@ -80,7 +82,7 @@ export class ServiceUploadImage extends WranglerEnv {
     const { R2Static } = this.env;
     await R2Static.put(hash, img);
     if (thumb) {
-      await R2Static.put(`${hash}-thumb`, thumb);
+      await R2Static.put(`${hash}/thumb`, thumb);
     }
 
     return img;
@@ -89,7 +91,7 @@ export class ServiceUploadImage extends WranglerEnv {
   /** 保存到d1数据库 */
   private saveToD1(hash: string, img: ArrayBuffer, post: ImgBase64Dto) {
     const from = IMAGE_FROM.R2;
-    const createDate = date('y-m-d h:i:s');
+    const createDate = date('y/m/d h:i:s');
     const { modelImage } = this;
     const row = {
       size: img.byteLength,
@@ -103,7 +105,7 @@ export class ServiceUploadImage extends WranglerEnv {
     };
 
     if (post.thumb) {
-      Reflect.set(row, 'thumb', `${hash}-thumb`);
+      Reflect.set(row, 'thumb', `${hash}/thumb`);
     }
 
     return modelImage.insert(row);

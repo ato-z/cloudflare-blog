@@ -23,7 +23,7 @@ pnpm install
 npx wrangler login
 
 # 如果是mac用户，使用
-sudo npx wrangler log
+sudo npx wrangler login
 ```
 
 ## 🧩 线上配置

@@ -1,3 +1,4 @@
+import { imageFind } from '@zerg/helper';
 import { ModelBase } from './Base';
 
 export type Master = {
@@ -15,5 +16,9 @@ export class ModelMaster extends ModelBase<Master> {
   name = 'master';
   hideing = ['deleteDate'] as const;
   appending = {};
-  getting = {};
+  getting = {
+    cover(value: unknown) {
+      return imageFind.getById(value);
+    },
+  };
 }

@@ -15,3 +15,35 @@ type RouteItem = {
   action?: import('react-router-dom').IndexRouteObject['action'];
   handle?: import('react-router-dom').NonIndexRouteObject['handle'];
 };
+
+type LikePromise<T> = Promise<T> | T;
+
+type FormItem = {
+  element: React.ReactNode;
+  name: string;
+  label: React.ReactNode;
+  rules?: Rule[];
+  labelAlign?: 'left' | 'right';
+};
+
+type PicItem = {
+  id: number;
+  path: string;
+  thumb: null | string;
+  hash: string;
+  width: number;
+  height: number;
+  size: number;
+  color: string;
+  from: number;
+  createDate: string;
+};
+
+type Master = {
+  id: number;
+  cover: PicItem | null;
+  nickname: string;
+  name: string;
+  intro: string;
+  createDate: string;
+};

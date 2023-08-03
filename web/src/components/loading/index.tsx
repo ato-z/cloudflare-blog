@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import './index.scss';
-const Loading = () => {
+export const Loading = () => {
   return (
     <div className="loader">
       <span></span>
