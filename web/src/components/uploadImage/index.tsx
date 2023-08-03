@@ -1,5 +1,5 @@
-import { Button, Upload } from 'antd';
-import { LoadingOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { Upload, Spin } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import type {
   RcFile,
   UploadChangeParam,
@@ -36,7 +36,7 @@ const uploadRequest = async <R extends { file: string | Blob | RcFile }>(
 
 const UploadBtn = ({ loading }: { loading: boolean }) => (
   <div>
-    <PlusOutlined />
+    {loading ? <Spin /> : <PlusOutlined />}
     <div style={{ marginTop: 8 }}>Upload</div>
   </div>
 );
