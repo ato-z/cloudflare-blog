@@ -12,8 +12,6 @@ import { articleSearchProps } from './vars';
 const { pageSize } = siteConfig;
 
 export const ArticleList = () => {
-  const params = useParams();
-  console.log(params);
   const navigate = useNavigate();
   const [SearchForm, searchData] = useSearchForm({ items: articleSearchProps });
   const [currentPage, setPage] = useState(0);
