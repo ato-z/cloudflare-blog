@@ -1,10 +1,10 @@
 import { lazy } from 'react';
 import { FontSizeOutlined } from '@ant-design/icons';
-import ArticleEdit from '@web/pages/article/edit';
 import { articleDetail } from '@web/api';
 
 const Article = lazy(() => import('@web/pages/article'));
 const ArticlePush = lazy(() => import('@web/pages/article/push'));
+const ArticleEdit = lazy(() => import('@web/pages/article/edit'));
 
 export const ArticleRouter: RouteItem = {
   label: '笔记',
