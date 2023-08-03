@@ -3,7 +3,7 @@ import { useSearchForm } from '@web/components/tableView/searchForm';
 import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
 import { siteConfig } from '@web/config';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useDatalist from '@web/helper/useDatalist';
 import { articleList } from '@web/api';
 import ArticleItem from './component/item';
