@@ -47,3 +47,11 @@ type Master = {
   intro: string;
   createDate: string;
 };
+
+interface DataType {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+  tags: string[];
+}
