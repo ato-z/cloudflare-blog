@@ -28,7 +28,7 @@ export class ServiceToken extends WranglerEnv {
   /** 当前访问者token */
   get token() {
     const { ctx } = this;
-    const token = ctx.headers.get('token');
+    const token = ctx.headers.get('token') ?? ctx.params.token;
     if (token === null) {
       throw new ExceptionMissToken();
     }
