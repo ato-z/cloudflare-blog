@@ -32,12 +32,17 @@ sudo npx wrangler login
 
 ```json
 {
+  /** 接口地址 */
   "zerg": {
-    /** 接口地址，所配置域名区域id */
+    /** 需配置域名区域id */
     "api": {
       "target": "<example.com|你的域名>",
       "zoneId": "<区域id>"
     }
+  },
+  /** r2存储桶地址 */
+  "web": {
+    "static": "<example.com|你的域名>"
   }
 }
 ```
