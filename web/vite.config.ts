@@ -11,4 +11,7 @@ export default defineConfig({
       '@web': path.join(__dirname, './src'),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1024,
+  },
 });
