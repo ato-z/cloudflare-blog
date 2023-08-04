@@ -2,7 +2,7 @@ import { ImageProp, imageListGet } from '@web/api/images';
 import { useCallback, useEffect, useState, useTransition } from 'react';
 import ImageItem from './components/ImageItem';
 import { Button, Col, Row, Space } from 'antd';
-import Loading from '@web/components/loading';
+import { AnimaView } from '@web/components/animaRouter';
 
 const column = 4;
 const end = column * 5;
@@ -30,7 +30,7 @@ const ImagesList = () => {
   }, [start]);
 
   return (
-    <Loading>
+    <AnimaView>
       <Row>
         {list.map(img => (
           <Col key={img.id}>
@@ -54,7 +54,7 @@ const ImagesList = () => {
           </Space>
         </Col>
       </Row>
-    </Loading>
+    </AnimaView>
   );
 };
 
