@@ -45,9 +45,9 @@ export class ControllerDatabaseV1 {
   }
 
   /**
-   * @api {get} /database/v1/tables   返回指定表下的列表
+   * @api {get} /database/v1/list   返回指定表下的列表
    * @apiVersion 1.0.0
-   * @apiName databaseTables
+   * @apiName databaseTableList
    * @apiGroup database
    *
    * @apiHeader {String}   Content-Type application/json
@@ -98,10 +98,10 @@ export class ControllerDatabaseV1 {
   }
 
   /**
-   * @api {PATCH} /database/v1/remove   删除数据
+   * @api {DELETE} /database/v1/remove   删除数据
    * @apiVersion 1.0.0
-   * @apiName articleEdit
-   * @apiGroup article
+   * @apiName databaseRemove
+   * @apiGroup database
    *
    * @apiHeader {String}   Content-Type application/json
    * @apiHeader {String}   token 调用[获取临时token](#api-master-masterToken)获取
