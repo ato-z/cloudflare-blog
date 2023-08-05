@@ -42,6 +42,8 @@ pushInFlatRoutes(routes, flatRoutes);
 /** 异步的动态路由列表 */
 export const routeChildren = flatRoutes.map(item => ({
   path: item.path,
+  label: item.label,
+  meta: item.meta,
   lazy: item.lazy,
   handle: item.handle,
   loader: item.loader,

@@ -1,5 +1,5 @@
 import { noteRemove } from '@web/api';
-import { Button, Input, Popconfirm, Space } from 'antd';
+import { Button, Input, Popconfirm, Space, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 /**
@@ -35,6 +35,15 @@ export const noteColumn: (
     title: '内容',
     dataIndex: 'content',
     key: 'content',
+    render(content) {
+      return (
+        <div style={{ maxWidth: '500px' }}>
+          <Typography.Paragraph ellipsis={{ rows: 1 }}>
+            {content}
+          </Typography.Paragraph>
+        </div>
+      );
+    },
   },
   {
     title: '创建时间',

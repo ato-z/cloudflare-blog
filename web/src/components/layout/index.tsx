@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Layout, theme } from 'antd';
 import { SiderMenu } from './component/menu';
 import { Header } from './component/header';
 import { Footer } from './component/footer';
+import { useEffect } from 'react';
+import { withLocation } from '@web/helper/withLocation';
+import { useNavs } from '@web/store/navs';
 const { Content } = Layout;
 
 const iframeStyle = { minHeight: '100vh' };
@@ -18,6 +21,14 @@ export const IframeLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const [, setNavs] = useNavs();
+
+  const location = useLocation();
+  useEffect(() => {
+    const navs = withLocation(location);
+    setNavs(navs);
+  }, [location, setNavs]);
 
   return (
     <Layout style={iframeStyle}>

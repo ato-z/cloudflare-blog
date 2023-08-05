@@ -8,4 +8,8 @@ export const ObserverRouter: RouteItem = {
   icon: <CommentOutlined />,
   path: '/observer',
   element: <ObserverList />,
+  meta: {
+    title: '评论',
+    paths: [{ title: '评论', path: './' }],
+  },
 };

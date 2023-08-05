@@ -8,4 +8,8 @@ export const ImagesRouter: RouteItem = {
   icon: <FileImageOutlined />,
   path: '/images',
   element: <ImagesList />,
+  meta: {
+    title: '图像',
+    paths: [{ title: '图像', path: './' }],
+  },
 };

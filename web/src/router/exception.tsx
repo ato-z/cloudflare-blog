@@ -8,4 +8,8 @@ export const ExceptionRouter: RouteItem = {
   icon: <FieldNumberOutlined />,
   path: '/exception',
   element: <ExceptionList />,
+  meta: {
+    title: '异常',
+    paths: [{ title: '异常', path: './' }],
+  },
 };

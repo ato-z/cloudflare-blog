@@ -8,4 +8,8 @@ export const HomeRouter: RouteItem = {
   icon: <HomeOutlined />,
   path: '/',
   element: <Home />,
+  meta: {
+    title: '首页',
+    paths: [{ title: '首页', path: './' }],
+  },
 };
