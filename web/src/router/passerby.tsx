@@ -8,4 +8,8 @@ export const PasserbyRouter: RouteItem = {
   icon: <FrownOutlined />,
   path: '/passerby',
   element: <PasserbyList />,
+  meta: {
+    title: '游客',
+    paths: [{ title: '游客', path: './' }],
+  },
 };

@@ -4,6 +4,11 @@ type RouteItem = {
   type?: 'group';
   path: string;
 
+  meta: {
+    title: string;
+    paths: Array<{ title: string; path: string }>;
+  };
+
   hide?: boolean;
 
   element: React.ReactNode | null;

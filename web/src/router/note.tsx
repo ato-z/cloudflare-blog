@@ -8,4 +8,8 @@ export const NoteRouter: RouteItem = {
   icon: <BookOutlined />,
   path: '/note',
   element: <Note />,
+  meta: {
+    title: '小记',
+    paths: [{ title: '小记', path: './' }],
+  },
 };

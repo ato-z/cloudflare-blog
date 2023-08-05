@@ -86,7 +86,7 @@ const ArticleItem = ({ detail }: { detail: any }) => {
         ]}
         extra={
           <AppImage
-            src={detail.cover?.thumb ?? detail.cover.path}
+            src={detail?.cover?.thumb ?? detail?.cover?.path}
             height={120}
             color={detail.color}
             preview={{ src: detail.cover.path }}

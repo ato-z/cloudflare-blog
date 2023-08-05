@@ -8,12 +8,23 @@ export const DatabaseRouter: RouteItem = {
   icon: <DatabaseOutlined />,
   path: '/database',
   element: <DataBaseIndex />,
+  meta: {
+    title: '数据',
+    paths: [{ title: '数据', path: './' }],
+  },
   children: [
     {
       label: '表详情',
       path: ':tableName',
       element: <TableView />,
       hide: true,
+      meta: {
+        title: '表信息',
+        paths: [
+          { title: '数据', path: '/database' },
+          { title: '表信息', path: './' },
+        ],
+      },
     },
   ],
 };
