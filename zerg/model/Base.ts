@@ -76,7 +76,11 @@ export abstract class ModelBase<T> extends Model {
     post: Omit<T, this['primaryKey']> | Omit<T, this['primaryKey']>[],
   ) {
     const { tableName } = this;
-    const entries = Object.entries(post).map(([key, value]) => [key, value]);
+    const entries = Object.entries(post).map(([key, value]) => [
+      key,
+      typeof value === 'string' ? value.replace(/'/g, '\\"') : value,
+    ]);
+
     const sql = Insert<any>(tableName, Object.fromEntries(entries));
     const result = await this.run(sql);
     return result;
@@ -87,6 +91,12 @@ export abstract class ModelBase<T> extends Model {
    */
   async update(post: Partial<T>, option: UpdateOption<T>) {
     const { tableName } = this;
+    for (const key in post) {
+      const val = post[key];
+      if (typeof val === 'string') {
+        post[key] = val.replace(/'/g, '\\"') as any;
+      }
+    }
     const sql = Update<any>(tableName, post, option);
     const result = await this.run(sql);
     return result;
