@@ -4,6 +4,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
+  padding-top: 120px;
   overflow: hidden;
   @mixin chandelier-lines($right, $bottom) {
     right: $right;
