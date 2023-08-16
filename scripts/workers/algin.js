@@ -4,7 +4,13 @@
 const fs = require('fs');
 const path = require('path');
 const prettier = require('prettier');
-const { wranglerConfig, pathMap, toToml, prettierrc } = require('../helper');
+const {
+  wranglerConfig,
+  pathMap,
+  toToml,
+  prettierrc,
+  domainApi,
+} = require('../helper');
 const { d1Databases, kvNamespaces, r2Buckets } = wranglerConfig;
 
 const { moduleList, modules } = pathMap;
@@ -20,14 +26,35 @@ if (kvNamespaces[0] && typeof kvNamespaces[0].id !== 'string') {
 moduleList.forEach(moduleName => {
   const dir = path.resolve(modules, moduleName);
   const extendConfig = require(path.resolve(dir, 'extend.wrangler.json'));
+
+  Object.assign(extendConfig, {
+    routes: [
+      { pattern: domainApi.target, customDomain: true },
+      {
+        pattern: `${domainApi.target}/${moduleName}/*`,
+        zoneId: domainApi.zoneId,
+      },
+    ],
+  });
+
   const config = {
     ...extendConfig,
     ...wranglerConfig,
     ...extendConfig,
   };
+
   const content = toToml(config);
   const tomlDir = path.resolve(dir, 'wrangler.toml');
   fs.writeFileSync(tomlDir, content);
+
+  const extendDir = path.resolve(dir, 'extend.wrangler.json');
+  fs.writeFileSync(
+    extendDir,
+    prettier.format(JSON.stringify(extendConfig), {
+      ...prettierrc,
+      parser: 'json',
+    }),
+  );
 });
 
 /** 更新.d.ts类型 */
