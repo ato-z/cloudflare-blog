@@ -4,23 +4,17 @@
   "accountId": "762f63023e996841c31645809a90c1d0",
   "d1Databases": [
     {
-      "binding": "DB",
-      "databaseName": "blog_d7c24df",
-      "databaseId": "71841805-96d5-4fe6-9d6a-ea1f73c231b6"
+      "binding": "DB"
     }
   ],
   "kvNamespaces": [
     {
-      "binding": "KV",
-      "id": "dd230fae3167431bb249f9a05e8c33b3",
-      "previewId": "dd230fae3167431bb249f9a05e8c33b3"
+      "binding": "KV"
     }
   ],
   "r2Buckets": [
     {
-      "binding": "R2Static",
-      "bucketName": "static-1c88a",
-      "previewBucketName": "static-1c88a"
+      "binding": "R2Static"
     }
   ]
 }
