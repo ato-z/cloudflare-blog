@@ -4,7 +4,7 @@ export const filterSqlVal = (val: unknown, key: string) => {
   }
 
   if (typeof val === 'string') {
-    const strVal = val.replace(/-/g, '\\-');
+    const strVal = val.replace(/--/g, '\\-\\-');
 
     return /^\d+$/.test(strVal) ? val : `'${strVal}'`;
   }
