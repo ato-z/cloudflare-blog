@@ -9,6 +9,11 @@
 > - 🏍️ 修改
 > - 🦼 删除
 
+## 🔗 在线地址
+> (https://easy.atoz.ltd)[https://easy.atoz.ltd/]
+> user: superAdmin
+> password: 123456
+
 ## 🚧 环境安装
 
 ```sh
