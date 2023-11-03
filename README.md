@@ -10,8 +10,10 @@
 > - 🦼 删除
 
 ## 🔗 在线地址
-> (https://easy.atoz.ltd)[https://easy.atoz.ltd/]
+> 点击 [🔗click here](https://easy.atoz.ltd) 预览
+> 
 > user: superAdmin
+> 
 > password: 123456
 
 ## 🚧 环境安装
