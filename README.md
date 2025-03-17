@@ -10,7 +10,7 @@
 > - 🦼 删除
 
 ## 🔗 在线地址
-> 点击 [🔗click here](https://easy.atoz.ltd) 预览
+> 点击 [🔗click here](https://cf.id5.icu)  预览
 > 
 > user: superAdmin
 > 
